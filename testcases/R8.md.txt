@@ -1,0 +1,42 @@
+# R8 `/*` test cases by Melissa Zhu
+### Test_Data:
+        ```
+        test_user = User(
+                email='test_frontend@test.com',
+                name='test_frontend',
+                password=generate_password_hash('test_frontend')
+        )
+        ```
+
+        ```
+        test_details = Details(
+                balance='12345.67'
+        )
+        ```
+
+        ```
+        test_ticket = Ticket(
+                owner='test_frontend@test.com',
+                name='test_ticket_yo',
+                quantity=10,
+                price=10,
+                date='20201231'
+        )
+        ```
+
+        ```
+        expired_test_ticket = Ticket(
+                owner='test_frontend@test.com',
+                name='test_ticket_yo',
+                quantity=10,
+                price=10,
+                date='19701231'
+        )
+        ```
+
+### Test case R8.1 - For any other requests except the ones above, the system should return a 404 error
+	Mocking:
+	- Mock backend.get_user to return a test_user instance
+	Actions:
+	- validate request cannot be matched to an existing case
+	- return 404 error
