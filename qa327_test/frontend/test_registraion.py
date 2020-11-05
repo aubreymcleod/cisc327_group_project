@@ -24,8 +24,8 @@ Annotate @patch before unit tests can mock backend methods (for that testing fun
 # Moch a sample user
 test_user = User(
     email='test_frontend@test.com',
-    name='test_frontend',
-    password=generate_password_hash('test_frontend')
+    name='Test_frontend',
+    password=generate_password_hash('Test_frontend')
 )
 
 # Moch some sample tickets
@@ -36,8 +36,8 @@ test_tickets = [
 
 class FrontEndHomePageTest(BaseCase):
 
-    @patch('qa327.backend.get_user', return_value=test_user)
-    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.library.users.get_user', return_value=test_user)
+    @patch('qa327.library.tickets.get_all_tickets', return_value=test_tickets)
     def test_login_success(self, *_):
         """
         This is a sample front end unit test to login to home page
@@ -47,7 +47,7 @@ class FrontEndHomePageTest(BaseCase):
         self.open(base_url + '/login')
         # fill email and password
         self.type("#email", "test_frontend@test.com")
-        self.type("#password", "test_frontend")
+        self.type("#password", "Test_frontend")
         # click enter button
         self.click('input[type="submit"]')
         
@@ -65,21 +65,21 @@ class FrontEndHomePageTest(BaseCase):
         self.open(base_url)
         # test if the page loads correctly
         self.assert_element("#welcome-header")
-        self.assert_text("Welcome test_frontend", "#welcome-header")
+        self.assert_text("Welcome Test_frontend", "#welcome-header")
         self.assert_element("#tickets div h4")
         self.assert_text("t1 100", "#tickets div h4")
 
-    @patch('qa327.backend.get_user', return_value=test_user)
-    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.library.users.get_user', return_value=test_user)
+    @patch('qa327.library.tickets.get_all_tickets', return_value=test_tickets)
     def test_login_password_failed(self, *_):
         """ Login and verify if the tickets are correctly listed."""
         # open login page
         self.open(base_url + '/login')
         # fill wrong email and password
         self.type("#email", "test_frontend@test.com")
-        self.type("#password", "wrong_password")
+        self.type("#password", "Wrong_password")
         # click enter button
         self.click('input[type="submit"]')
         # make sure it shows proper error message
         self.assert_element("#message")
-        self.assert_text("login failed", "#message")
+        self.assert_text('email/password combination incorrect', "#message")
