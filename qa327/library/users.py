@@ -2,9 +2,12 @@ from qa327.models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
-This file defines all backend logic that interacts with database and other services
+This file defines any and all functions for operating on users:
+- accessing users profiles by their emails
+- login in a user to a new session
+- registering new users
+- etc.
 """
-
 
 def get_user(email):
     """
@@ -47,7 +50,3 @@ def register_user(email, name, password, password2):
     db.session.add(new_user)
     db.session.commit()
     return None
-
-
-def get_all_tickets():
-    return []
