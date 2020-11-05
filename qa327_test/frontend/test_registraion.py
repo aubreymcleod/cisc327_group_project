@@ -36,8 +36,8 @@ test_tickets = [
 
 class FrontEndHomePageTest(BaseCase):
 
-    @patch('qa327.backend.get_user', return_value=test_user)
-    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.library.users.get_user', return_value=test_user)
+    @patch('qa327.library.tickets.get_all_tickets', return_value=test_tickets)
     def test_login_success(self, *_):
         """
         This is a sample front end unit test to login to home page
@@ -69,8 +69,8 @@ class FrontEndHomePageTest(BaseCase):
         self.assert_element("#tickets div h4")
         self.assert_text("t1 100", "#tickets div h4")
 
-    @patch('qa327.backend.get_user', return_value=test_user)
-    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
+    @patch('qa327.library.users.get_user', return_value=test_user)
+    @patch('qa327.library.tickets.get_all_tickets', return_value=test_tickets)
     def test_login_password_failed(self, *_):
         """ Login and verify if the tickets are correctly listed."""
         # open login page
