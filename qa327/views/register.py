@@ -49,25 +49,22 @@ def register_post():
     '''
     # Check if passwords match
     if password != password2:
-        error_message = "The passwords do not match"
+        error_message = "The passwords format is incorrect"
     # Check for valid email
     elif len(email) < 1 or not valid.validate_email_address(email):
-        error_message = "Email format error"
+        error_message = "Email format is incorrect"
     # Check for valid password
-    elif len(password) < 1 or not valid.validate_password(password):
-        error_message = "Password format error: Password not strong enough"
-    # Check that the length of the name is not too small
-    elif len(name) < 3:
-        error_message = "Username is too short"
-    # Check that the length of the name is not too long
-    elif len (name) > 19:
-        error_message = "Username is too long"
+    elif not valid.validate_password(password):
+        error_message = "Password format is incorrect"
+    # Check that the length of the name is aceptable
+    elif len(name) < 3 or len(name) >19:
+        error_message = "Username format is incorrect"
     # Check that there are no non alphanumeric characters other then space
     elif not nameNoSpace.isalnum():
-        error_message = "Username must be alphanumeric"
+        error_message = "Username format is incorrect"
     # Check that there is no space at begining or end
     elif name[0]==' ' or name[len(name)-1]==' ':
-        error_message = "Username cannot begin or end with a space"
+        error_message = "Username format is incorrect"
     else:
         user = usr.get_user(email)
         # Check if email has already been used

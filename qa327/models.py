@@ -16,7 +16,6 @@ db.init_app(app)
 class User(db.Model):
     """
     A user model which defines the sql table
-    Model also contains an integer attribute to hold the user balance
     """
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
