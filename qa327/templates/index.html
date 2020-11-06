@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block content %}
-<h2 id="welcome-header">Welcome {{ user.name }} !</h2>
+<h2 id="welcome-header">Hi {{ user.name }}</h2>
 
+<h3 id="user-balance">Your balance is {{ balance }}</h3>
 
 <h2 >Here are all available tickets</h2>
 
@@ -17,6 +18,67 @@
     </div>
 {% endfor %}
 </div>
+
+<ul> 
+	<li>
+		<h1>Buy Ticket</h1>
+		
+		<form method='POST' action='/buy'>
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+ 
+			<input type='submit'/> 
+		</form>
+	</li>
+	
+	
+	<li> 
+		<h1>Sell Ticket</h1>
+
+		<form method='POST' action='/sell'>
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+	
+			<label for='price'> Price: </label>
+			<input type='text' name='price' id='price' required/> 
+	
+			<label for='expiration'> Expiration Date: </label>
+			<input type='text' name='expiration' id='expiration' required/> 
+	
+			<input type='submit'/> 
+		</form>
+	</li>
+	
+	
+	<li> 
+		<h1>Update Ticket</h1>
+
+		<form method='POST' action='/update'>
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+	
+			<label for='price'> Price: </label>
+			<input type='text' name='price' id='price' required/> 
+	
+			<label for='expiration'> Expiration Date: </label>
+			<input type='text' name='expiration' id='expiration' required/> 
+	
+			<input type='submit'/> 
+		</form>
+	</li>
+</ul>
 
 <a href='/logout'>logout</a>
 {% endblock %}
