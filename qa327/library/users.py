@@ -33,19 +33,20 @@ def login_user(email, password):
     return user
 
 
-def register_user(email, name, password, password2):
+def register_user(email, name, password, password2, balance):
     """
     Register the user to the database
     :param email: the email of the user
     :param name: the name of the user
     :param password: the password of user
     :param password2: another password input to make sure the input is correct
+    :param balance: an integer value of user balance in cents
     :return: an error message if there is any, or None if register succeeds
     """
 
     hashed_pw = generate_password_hash(password, method='sha256')
     # store the encrypted password rather than the plain password
-    new_user = User(email=email, name=name, password=hashed_pw)
+    new_user = User(email=email, name=name, password=hashed_pw, balance=balance)
 
     db.session.add(new_user)
     db.session.commit()
