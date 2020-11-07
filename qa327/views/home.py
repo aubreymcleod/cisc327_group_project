@@ -1,4 +1,4 @@
-from flask import Blueprint, session, render_template
+from flask import Blueprint, session, render_template, redirect
 from qa327.library.authenticate import authenticate
 import qa327.library.tickets as tckts
 
