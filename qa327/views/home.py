@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, session, render_template, redirect
 from qa327.library.authenticate import authenticate
 import qa327.library.tickets as tckts
 
@@ -19,5 +19,12 @@ def profile(user):
     """
     profile renders the user's profile page at the "/" route.
     """
+
+    if 'logged_in' not in session:
+            return redirect('/login', code=303)
+
+    
+
+    
     tickets = tckts.get_all_tickets()
-    return render_template('index.html', user=user, tickets=tickets)
+    return render_template('index.html', user=user, tickets=tickets, balance=user.balance/100)

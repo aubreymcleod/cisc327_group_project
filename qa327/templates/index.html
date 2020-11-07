@@ -5,18 +5,80 @@
 {% endblock %}
 
 {% block content %}
-<h2 id="welcome-header">Welcome {{ user.name }} !</h2>
+<h2 id="welcome-header">Hi {{ user.name }}</h2>
 
+<h3 id="user-balance">Your balance is {{ balance }}</h3>
 
 <h2 >Here are all available tickets</h2>
 
 <div id="tickets">
 {% for ticket in tickets %}
     <div>
-        <h4>{{ ticket.name }} {{ ticket.price }}</h4>
+        <h4>(x{{ ticket.quantity }}) {{ ticket.ticket_name }} ${{ ticket.price }} Sold By: {{ ticket.owners_email }}</h4>
     </div>
 {% endfor %}
 </div>
+
+<ul> 
+	<li>
+		<h1>Buy Ticket</h1>
+		
+		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+ 
+			<input type='submit'/> 
+		</form>
+	</li>
+	
+	
+	<li> 
+		<h1>Sell Ticket</h1>
+
+		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+	
+			<label for='price'> Price: </label>
+			<input type='text' name='price' id='price' required/> 
+	
+			<label for='expiration'> Expiration Date: </label>
+			<input type='text' name='expiration' id='expiration' required/> 
+	
+			<input type='submit'/> 
+		</form>
+	</li>
+	
+	
+	<li> 
+		<h1>Update Ticket</h1>
+
+		<form method='POST' action="{{ url_for('update_page.update_post') }}">
+ 
+			<label for='ticket_name'> Name: </label>
+			<input type='text' name='ticket_name' id='ticket_name' required/> 
+	
+			<label for='quantity'> Quantity: </label>
+			<input type='text' name='quantity' id='quantity' required/> 
+	
+			<label for='price'> Price: </label>
+			<input type='text' name='price' id='price' required/> 
+	
+			<label for='expiration'> Expiration Date: </label>
+			<input type='text' name='expiration' id='expiration' required/> 
+	
+			<input type='submit'/> 
+		</form>
+	</li>
+</ul>
 
 <a href='/logout'>logout</a>
 {% endblock %}

@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
 from unittest.mock import patch
-from qa327.models import db, User
+from qa327.models import db, User, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -25,13 +25,18 @@ Annotate @patch before unit tests can mock backend methods (for that testing fun
 test_user = User(
     email='test_frontend@test.com',
     name='Test_frontend',
-    password=generate_password_hash('Test_frontend')
+    password=generate_password_hash('Test_frontend'),
+    balance=500000
 )
 
 # Moch some sample tickets
-test_tickets = [
-    {'name': 't1', 'price': '100'}
-]
+test_tickets = [Ticket(
+ticket_name='t1',
+price=100,
+quantity=1,
+expiration='9999/12/31',
+owners_email='test_frontend@test.com'
+)]
 
 
 class FrontEndHomePageTest(BaseCase):
@@ -65,9 +70,9 @@ class FrontEndHomePageTest(BaseCase):
         self.open(base_url)
         # test if the page loads correctly
         self.assert_element("#welcome-header")
-        self.assert_text("Welcome Test_frontend", "#welcome-header")
+        self.assert_text("Hi Test_frontend", "#welcome-header")
         self.assert_element("#tickets div h4")
-        self.assert_text("t1 100", "#tickets div h4")
+        self.assert_text("(x1) t1 $100 Sold By: test_frontend@test.com", "#tickets div h4")
 
     @patch('qa327.library.users.get_user', return_value=test_user)
     @patch('qa327.library.tickets.get_all_tickets', return_value=test_tickets)

@@ -6,6 +6,9 @@ from qa327.views.home import home_page
 from qa327.views.login import login_page
 from qa327.views.logout import logout_page
 from qa327.views.register import register_page
+from qa327.views.buy import buy_page
+from qa327.views.sell import sell_page
+from qa327.views.update import update_page
 
 """
 This file defines the front-end part of the service.
@@ -19,6 +22,9 @@ app.register_blueprint(home_page)
 app.register_blueprint(login_page, url_prefix='/login')
 app.register_blueprint(logout_page, url_prefix='/logout')
 app.register_blueprint(register_page, url_prefix='/register')
+app.register_blueprint(buy_page, url_prefix='/buy')
+app.register_blueprint(sell_page, url_prefix='/sell')
+app.register_blueprint(update_page, url_prefix='/update')
 
 """
 display a catch all 404 error page whenever our app hits an unknown route.
