@@ -14,7 +14,7 @@
 <div id="tickets">
 {% for ticket in tickets %}
     <div>
-        <h4>{{ ticket.name }} {{ ticket.price }}</h4>
+        <h4>(x{{ ticket.quantity }}) {{ ticket.ticket_name }} ${{ ticket.price }} Sold By: {{ ticket.owners_email }}</h4>
     </div>
 {% endfor %}
 </div>
@@ -23,7 +23,7 @@
 	<li>
 		<h1>Buy Ticket</h1>
 		
-		<form method='POST' action='/buy'>
+		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
  
 			<label for='ticket_name'> Name: </label>
 			<input type='text' name='ticket_name' id='ticket_name' required/> 
@@ -39,7 +39,7 @@
 	<li> 
 		<h1>Sell Ticket</h1>
 
-		<form method='POST' action='/sell'>
+		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
  
 			<label for='ticket_name'> Name: </label>
 			<input type='text' name='ticket_name' id='ticket_name' required/> 
@@ -61,7 +61,7 @@
 	<li> 
 		<h1>Update Ticket</h1>
 
-		<form method='POST' action='/update'>
+		<form method='POST' action="{{ url_for('update_page.update_post') }}">
  
 			<label for='ticket_name'> Name: </label>
 			<input type='text' name='ticket_name' id='ticket_name' required/> 

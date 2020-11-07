@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect
+from flask import Blueprint, redirect,  request
 import qa327.library.tickets as tic
 
 buy_page = Blueprint('buy_page', __name__)
@@ -12,7 +12,7 @@ def buy_post():
     ticket_name = request.form.get('ticket_name')
     quantity = request.form.get('quantity')
 
-    ticket = tic.add_ticket(ticket_name, quantity)
+    ticket = tic.buy_ticket(ticket_name, quantity)
     if ticket:
         #debug
         print('debug: failed to buy ticket')

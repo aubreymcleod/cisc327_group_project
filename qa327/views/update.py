@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect
+from flask import Blueprint, redirect,  request
 import qa327.library.tickets as tic
 
 update_page = Blueprint('update_page', __name__)

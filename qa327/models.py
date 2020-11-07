@@ -24,10 +24,12 @@ class User(db.Model):
     balance = db.Column(db.Integer)
 
 class Ticket(db.Model):
-    ticket_name = db.Column(db.String(100), unique=True, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    ticket_name = db.Column(db.String(100))
     quantity = db.Column(db.Integer)
     price = db.Column(db.Integer)
     expiration = db.Column(db.String(100))
+    owners_email = db.Column(db.String(255))
     
 # it creates all the SQL tables if they do not exist
 with app.app_context():
