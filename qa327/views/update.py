@@ -1,6 +1,13 @@
 from flask import Blueprint, redirect,  request
 import qa327.library.tickets as tic
 
+'''
+The following functions allow the user to fill out ticket name, quantity,
+price and expiration date in order to update a ticket.
+If the ticket fails to post, users are given an error message and redirected
+to the homepage
+'''
+
 update_page = Blueprint('update_page', __name__)
 
 @update_page.route('/', methods=['GET'])
