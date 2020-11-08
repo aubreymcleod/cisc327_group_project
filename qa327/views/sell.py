@@ -1,6 +1,13 @@
 from flask import Blueprint, redirect, request, session
 import qa327.library.tickets as tic
 
+'''
+The following functions allow the user to fill out ticket name, quantity,
+price and expiration date for the ticket they want to post to sell. If
+the ticket fails to post, users are given an error message and redirected
+to the homepage
+'''
+
 sell_page = Blueprint('sell_page', __name__)
 
 @sell_page.route('/', methods=['GET'])

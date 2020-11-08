@@ -15,14 +15,14 @@ def get_all_tickets():
     
     #ticket.expiration = date (string)
     tickets = Ticket.query.all() #list of all tickets in database
-    valid_tickets = []
+    valid_tickets = [] #list of all non expired tickets
     for ticket in tickets:
         if ticket.expiration >= todays_date:
             valid_tickets.append(ticket)
     
     return valid_tickets
     
-
+#The following 3 functions will allow users to add a ticket to sell, buy a ticket and update a ticket
 def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
     db.session.add(ticket)
