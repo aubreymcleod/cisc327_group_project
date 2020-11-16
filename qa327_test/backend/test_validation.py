@@ -8,6 +8,7 @@ This file defines all unit tests for the backend validation functions.
 ### Email validation
 # emails must meet the RFC5322 standard
 # must contain a @
+# Emails must have two parts, the local address <= 64 in length, and the domain <=255
 # local address must either be alphanumeric with '.' (not at start or end or next to any other dots) or any of the following '!#$%&'*+-/=?^_`{|}~', and have a length greater than 0 but less than 64
 # local address may also be encapsulated in double quotes, which allows for any valid printable character, with some exceptions.
 # domains must be alpha numeric with options for - (not at the end), with '.' acting as a separator.
