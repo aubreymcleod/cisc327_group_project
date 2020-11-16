@@ -12,6 +12,12 @@ def validate_email_address(email):
     :param email: the email of the user
     :return: returns True if the email is valid, False otherwise
     """
+    #test lengths
+    address = email.split('@')
+    address[0] = '@'.join(address[:-1])
+    if len(address[0])>64 or len(address[-1])>255:
+        return False
+
     try:
         Address(addr_spec=email)
         return True
