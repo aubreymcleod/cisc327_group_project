@@ -104,7 +104,7 @@ class FrontEndHomePageTest(BaseCase):
         # click element input[type=“submit”]
         self.click('input[type="submit"]')
         # open /
-        self.open(base_url + '/')
+        self.open(base_url)
         # validate that the #user_balance element says "Your current balance is 5000.0"
         self.assert_text('Your balance is 5000.0', '#user-balance')
         # open /logout (clean up)
@@ -131,11 +131,10 @@ class FrontEndHomePageTest(BaseCase):
         # validate that the '#logout' element exists
         self.assert_element('#logout')
         # validate that the '#logout' element makes a '[GET] request' to '/logout'
-        #self.get(base_url + '/logout')
+        link=self.get_attribute('#logout', 'href')
+        assert link==base_url+'/logout'
         # click element '#logout'
-        #link=self.get_attribute('#logout', 'href')
-        #assert link=='/logout'
-        self.click('a[rel="/logout"]')
+        self.click('#logout')
         # validate that the current page is '/login'
         self.open(base_url + '/login')
         # open /
