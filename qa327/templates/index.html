@@ -9,7 +9,7 @@
 
 <h3 id="user-balance">Your balance is {{ balance }}</h3>
 
-<h2 >Here are all available tickets</h2>
+<h2 id="available-tickets">Here are all available tickets</h2>
 
 <div id="tickets">
 {% for ticket in tickets %}
@@ -21,7 +21,7 @@
 
 <ul> 
 	<li>
-		<h1>Buy Ticket</h1>
+		<h1 id="buy-ticket">Buy Ticket</h1>
 		
 		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
  
@@ -37,7 +37,7 @@
 	
 	
 	<li> 
-		<h1>Sell Ticket</h1>
+		<h1 id="sell-ticket">Sell Ticket</h1>
 
 		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
  
@@ -59,7 +59,7 @@
 	
 	
 	<li> 
-		<h1>Update Ticket</h1>
+		<h1 id="update-ticket">Update Ticket</h1>
 
 		<form method='POST' action="{{ url_for('update_page.update_post') }}">
  
@@ -80,5 +80,5 @@
 	</li>
 </ul>
 
-<a href='/logout'>logout</a>
+<a href='/logout' id="logout">logout</a>
 {% endblock %}
