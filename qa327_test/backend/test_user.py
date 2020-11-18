@@ -76,7 +76,7 @@ def test_user_register_user_invalid_add(self, *_):
     test_password2 = "Pa$sword"                                         ## Test with valid password2
     test_balance  = 50000                                               ## Test with valid balance
     assert users.register_user(test_email, test_name, test_password,
-                         test_password2, test_balance) == 'error'       ## Run register and make sure it returns an error message
+                         test_password2, test_balance) is 'error'       ## Run register and make sure it returns an error message
 
 ## Test the register_user with error in session.commit
 @patch('qa327.models.db.session.add', side_effect=-1)
@@ -88,4 +88,4 @@ def test_user_register_user_invalid_commit(self, *_):
     test_password2 = "Pa$sword"                                         ## Test with valid password2
     test_balance  = 50000                                               ## Test with valid balance
     assert users.register_user(test_email, test_name, test_password,
-                         test_password2, test_balance) == 'error'       ## Run register and make sure it returns an error message
+                         test_password2, test_balance) is 'error'       ## Run register and make sure it returns an error message

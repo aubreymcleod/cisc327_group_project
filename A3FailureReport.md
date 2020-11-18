@@ -46,25 +46,46 @@ Finally we test an address with a local part longer than 64 characters.
 | |1.8.2| Password has to meet the required complexity: minimum length 6, at least one upper case, at least one lower case, and at least one special character. | No case for when password fails to meet standards. | Implemented new test case. |
 | |1.9|For any formatting errors, render the login page and show the message “email/password format is incorrect.” | Test design fails to test for invalid data, only uses original valid data to test for formatting error. | Redesigned test so that bad email and password were tested.|
 |R8| | | |No errors found in this section. |
-|R2|2.7.1| Register a user with space in name | User would not register because the email was already used by a past test | Added a patch to avoid the call to the back end to actually register users. This is now used for evey test. |
-| |2.8.2| Regisert a user with a 2 characrter length name | Specs say to pass fail with a length of 2, testing file said to pass. | Fixed R2.md to match specs |
-| |2.8.3| Register a user with a 20 charcter name | Specs say to fail, R2.md says to pass | Fixed R2.md to match specs |
-| |2.10.1| Fail if email has already been used | Has the output as the and 'the' test as 'this' | Changed test |
-| |2.5.2| Fail is email does not match the specs from R1 | The output message does not match the testing output message. | Fixed test and R2.md |
-| |2.5.3| Fail is password does not match the specs from R1 | The output message does not match the testing output message. | Fixed test and R2.md |
-| |2.9.1| When registration fails go back to login and display an error message | Based off the template and logical flow of the program it is suppose to go back to the register page | Changed test design in R2.md |
-| |2.11.1| After a successful register verify that the balance in 5000 and redirected to login | Could not test redirection and balance in one test case | Slplit into R2.11.1 and R2.11.2 | 
-| |2.5.1| Successfull email registration | R2.md success error message critria was not inline with specifications | Changed success criteria to check for the log in header |
-| |2.6.1| Successfull password registration | See above | See above |
-| |2.7.1-2| Succesfull username registrations | See above | See above |
-| |2.8.1| Succesfull username registrations | See above | See above |
-| |2.7.3-9| Unsuccesfull username registrations | See above | See above |
-| |2.8.2| Username too short | See above | See above |
-| |2.8.5| Username too long | See above | See above |
-|R7| | | |No errors found in this section|
 
 #####Backend Test Implementation Failures
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
 |VALIDATION| EMAIL.15 | EMAIL.15- emails must conform to RFC5322, local address is too long(Fail) | Original validator did not test for length > 64 on local address or length >255 on domain, causing the test to pass. | Implemented the required length validation in qa327.library.validation.validate_email_address.
-|USER| Registration Error | If an error is encounted then return an error message | There was no error handling in the user.py file | Added a try catch to the regiser_user so the errors are caught and the message is returned |
+
+
+###Section 2: Teaghan Laitar
+
+I implemented the test set from A1 for features R2 and R7. I also implemented a set of blackbox tests for the backend's user library, which tested get_user, register_user, and login_user.
+
+For the test implementation of R2 and R7 the most noticeable failures were in the error message for incorrect user input. 
+When writing the test plans I did not follow the error message format word for word, so these were fixed so the test would pass. 
+As can be seen bellow this was a failure for many of the tests in R2.
+For more information on the individual test cases see R2.md and R7.md in the test cases folder of our project.
+
+Also, for each function in user I preformed a test for what happens if the function call is successful in its intention or not unsuccessful. 
+So, user_get has a test for a user being successfully found and for one not. User_register has a test for successful registration and two test cases for possible failures. And lastly user_login has a test for a successful login and a failed login because of the wrong password.
+
+#####Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R2|2.7.1| Register a user with space in name | User would not register because the email was already used by a past test | Added a patch to avoid the call to the back end to actually register users. This is now used for every test. |
+| |2.8.2| Register a user with a 2 character length name | Specs say to pass fail with a length of 2, testing file said to pass. | Fixed R2.md to match specs |
+| |2.8.3| Register a user with a 20 character name | Specs say to fail, R2.md says to pass | Fixed R2.md to match specs |
+| |2.10.1| Fail if email has already been used | Has the output as the and 'the' test as 'this' | Changed test |
+| |2.5.2| Fail is email does not match the specs from R1 | The output message does not match the testing output message. | Fixed test and R2.md |
+| |2.5.3| Fail is password does not match the specs from R1 | The output message does not match the testing output message. | Fixed test and R2.md |
+| |2.9.1| When registration fails go back to login and display an error message | Based off the template and logical flow of the program it is suppose to go back to the register page | Changed test design in R2.md |
+| |2.11.1| After a successful register verify that the balance in 5000 and redirected to login | Could not test redirection and balance in one test case | Split into R2.11.1 and R2.11.2 | 
+| |2.5.1| Successful email registration | R2.md success error message criteria was not inline with specifications | Changed success criteria to check for the log in header |
+| |2.6.1| Successful password registration | See above | See above |
+| |2.7.1-2| Succesful username registrations | See above | See above |
+| |2.8.1| Succesful username registrations | See above | See above |
+| |2.7.3-9| Unsuccesfull username registrations | See above | See above |
+| |2.8.2| Username too short | See above | See above |
+| |2.8.5| Username too long | See above | See above |
+|R7| | | | No errors found in this section |
+
+#####Backend Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the regiser_user so the errors are caught and the message is returned |
