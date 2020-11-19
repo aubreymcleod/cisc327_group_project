@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, session
+from flask import Blueprint, redirect, request, session, render_template
 import qa327.library.tickets as tic
 
 '''
@@ -21,10 +21,25 @@ def sell_post():
     quantity = request.form.get('quantity')
     price = request.form.get('price')
     expiration = request.form.get('expiration')
+    message=None
+
 
     ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
     if ticket:
-        #debug
-        print('debug: failed to post ticket')
+        #debug, add_ticket function returns 'None' if successful
+        #print('debug: failed to post ticket')
+        message="failed to list the ticket(s)"
+        #return render_template('index.html', sell_message="failed to list the ticket(s)")
+    else:
+        message='successfully listed the ticket(s)'
+        #return render_template('index.html', sell_message='successfully listed the ticket(s)')
 
-    return redirect('/', code=303)
+    if message:
+        return render_template('index.html', sell_message=message)
+    else:
+         return redirect('/login')
+        #render_template('index.html',sell_message=sell_message)
+
+
+   
+   

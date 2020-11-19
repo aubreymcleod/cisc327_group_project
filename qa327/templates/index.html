@@ -9,6 +9,7 @@
 
 <h3 id="user-balance">Your balance is {{ balance }}</h3>
 
+
 <h2 >Here are all available tickets</h2>
 
 <div id="tickets">
@@ -26,14 +27,15 @@
 		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='buy_name'/>
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='buy_quantity' />
  
-			<input type='submit'/> 
+			<input type='submit' id='buy_submit'/>
 		</form>
 	</li>
+    <h4 id='buy_message'>{{buy_message}}</h4>
 	
 	
 	<li> 
@@ -42,20 +44,21 @@
 		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='sell_name' />
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='sell_quantity' />
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='price' required/> 
+			<input type='text' name='price' id='sell_price'/>
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='expiration' required/> 
+			<input type='text' name='expiration' id='sell_expiration' />
 	
-			<input type='submit'/> 
+			<input type='submit' id='sell_submit'/>
 		</form>
 	</li>
+    <h5 id='sell_message'>{{sell_message}}</h5>
 	
 	
 	<li> 
@@ -64,21 +67,24 @@
 		<form method='POST' action="{{ url_for('update_page.update_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='update_name' />
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='update_quantity' />
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='price' required/> 
+			<input type='text' name='price' id='update_price' />
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='expiration' required/> 
+			<input type='text' name='expiration' id='update_expiration' />
 	
-			<input type='submit'/> 
+			<input type='submit' id='update_submit'/>
+            
 		</form>
 	</li>
+     <h6 id='update_message'>{{update_message}}</h6>
 </ul>
+
 
 <a href='/logout'>logout</a>
 {% endblock %}
