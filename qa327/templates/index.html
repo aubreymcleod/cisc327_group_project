@@ -14,7 +14,7 @@
 <div id="tickets">
 {% for ticket in tickets %}
     <div>
-        <h4>(x{{ ticket.quantity }}) {{ ticket.ticket_name }} ${{ ticket.price }} Sold By: {{ ticket.owners_email }}</h4>
+        <h4 id="ticket-info">(x{{ ticket.quantity }}) {{ ticket.ticket_name }} ${{ ticket.price }} Sold By: {{ ticket.owners_email }}</h4>
     </div>
 {% endfor %}
 </div>
@@ -26,12 +26,12 @@
 		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='buy-ticket-name' /> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='buy-quantity' /> 
  
-			<input type='submit'/> 
+			<input type='submit' id='buy-submit''/> 
 		</form>
 	</li>
 	
@@ -42,19 +42,20 @@
 		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='sell-ticket-name' /> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='sell-quantity' /> 
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='price' required/> 
+			<input type='text' name='price' id='sell-price' /> 
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='expiration' required/> 
+			<input type='text' name='expiration' id='sell-expiration' /> 
 	
-			<input type='submit'/> 
+			<input type='submit' id='sell-submit''/> 
 		</form>
+		<h4 id='sell_message'>{{ sell_message }}</h4>
 	</li>
 	
 	
@@ -64,18 +65,18 @@
 		<form method='POST' action="{{ url_for('update_page.update_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='ticket_name' required/> 
+			<input type='text' name='ticket_name' id='update-ticket-name' /> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='quantity' required/> 
+			<input type='text' name='quantity' id='update-quantity' /> 
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='price' required/> 
+			<input type='text' name='price' id='update-price' /> 
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='expiration' required/> 
+			<input type='text' name='expiration' id='update-expiration' /> 
 	
-			<input type='submit'/> 
+			<input type='submit' id='update-submit''/> 
 		</form>
 	</li>
 </ul>

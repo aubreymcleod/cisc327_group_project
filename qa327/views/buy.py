@@ -21,6 +21,9 @@ def buy_post():
     ticket = tic.buy_ticket(ticket_name, quantity)
     if ticket:
         #debug
-        print('debug: failed to buy ticket')
+        #print('debug: failed to buy ticket')
+        buy_message='successfully bought ticket(s)'
+    else:
+    	buy_message='failed to buy ticket(s)'
 
     return redirect('/', code=303)
