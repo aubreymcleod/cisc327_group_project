@@ -10,18 +10,17 @@ def get_all_tickets():
     this function takes no arguments and returns all valid tickets in our database.
     :return: returns all valid tickets in the database
     """
+    
+    todays_date = date.today().strftime("%Y/%m/%d")
+    
+    #ticket.expiration = date (string)
     tickets = Ticket.query.all() #list of all tickets in database
-    return tickets
-
-
-def prune_expired_tickets(tickets):
-	todays_date = date.today().strftime("%Y/%m/%d")
-	valid_tickets = []			#list of all non expired tickets
-	for ticket in tickets:
-		if ticket.expiration >= todays_date:
-			valid_tickets.append(ticket)
-
-	return valid_tickets
+    valid_tickets = [] #list of all non expired tickets
+    for ticket in tickets:
+        if ticket.expiration >= todays_date:
+            valid_tickets.append(ticket)
+    
+    return valid_tickets
     
 #The following 3 functions will allow users to add a ticket to sell, buy a ticket and update a ticket
 def add_ticket(ticket_name, quantity, price, expiration, owners_email):
