@@ -30,8 +30,6 @@ def profile(user):
 	tickets = tckts.get_all_tickets()
 	tickets = tckts.prune_expired_tickets(tickets)
 	
-	print("DEBUG:", sell_msg)
-	
 	resp = make_response(render_template('index.html', user=user, tickets=tickets, balance=user.balance/100, sell_msg=sell_msg, buy_msg=buy_msg, update_msg=update_msg))
 	resp.set_cookie('buy_msg', '',expires=0)
 	resp.set_cookie('sell_msg', '', expires=0)
