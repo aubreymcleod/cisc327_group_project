@@ -71,6 +71,7 @@ test_user_bad_both = User(
 )
 
 class FrontEndLoginPageTest(BaseCase):
+
     ### Test case R1.1 - If the user hasn't logged in, show the login page.
     @patch('qa327.library.users.get_user', return_value=test_user)
     def test_login_page_no_session(self, *_):
@@ -388,3 +389,4 @@ class FrontEndLoginPageTest(BaseCase):
         self.click('input[type="submit"]')
         # validate that current page is "/"
         self.assert_element("#log-in-header")
+        

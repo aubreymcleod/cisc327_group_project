@@ -10,81 +10,87 @@
 <h3 id="user-balance">Your balance is {{ balance }}</h3>
 
 
-<h2 >Here are all available tickets</h2>
+<h2 id="available-tickets">Here are all available tickets</h2>
 
 <div id="tickets">
 {% for ticket in tickets %}
     <div>
-        <h4>(x{{ ticket.quantity }}) {{ ticket.ticket_name }} ${{ ticket.price }} Sold By: {{ ticket.owners_email }}</h4>
+        <h4 class="ticket-info"><span id='ticket{{ loop.index }}_quantity'>(x{{ ticket.quantity }})</span> <span id='ticket{{ loop.index }}_name'>{{ ticket.ticket_name }}</span> <span id='ticket{{ loop.index }}_price'>${{ ticket.price }}</span> Sold By: <span id='ticket{{ loop.index }}_owner'>{{ ticket.owners_email }}</span></h4>
     </div>
 {% endfor %}
 </div>
 
 <ul> 
 	<li>
-		<h1>Buy Ticket</h1>
-		
+		<h1 id="buy-ticket">Buy Ticket</h1>
+		<span id='buy_message'>{{ buy_msg }}</span>
 		<form method='POST' action="{{ url_for('buy_page.buy_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='buy_name'/>
+
+			<input type='text' name='ticket_name' id='buy-ticket-name' required/> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='buy_quantity' />
+			<input type='text' name='quantity' id='buy-quantity' required/> 
  
-			<input type='submit' id='buy_submit'/>
+			<input type='submit' id='buy-submit''/> 
+
 		</form>
 	</li>
     <h4 id='buy_message'>{{buy_message}}</h4>
 	
 	
 	<li> 
-		<h1>Sell Ticket</h1>
-
+		<h1 id="sell-ticket">Sell Ticket</h1>
+		<span id='sell_message'>{{ sell_msg }}</span>
 		<form method='POST' action="{{ url_for('sell_page.sell_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='sell_name' />
+
+			<input type='text' name='ticket_name' id='sell-ticket-name' requiered/> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='sell_quantity' />
+			<input type='text' name='quantity' id='sell-quantity' required/> 
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='sell_price'/>
+			<input type='text' name='price' id='sell-price' required/> 
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='sell_expiration' />
+			<input type='text' name='expiration' id='sell-expiration' required/> 
 	
-			<input type='submit' id='sell_submit'/>
+			<input type='submit' id='sell-submit''/> 
+
 		</form>
+		<h4 id='sell_message'>{{ sell_message }}</h4>
 	</li>
     <h5 id='sell_message'>{{sell_message}}</h5>
 	
 	
 	<li> 
-		<h1>Update Ticket</h1>
-
+		<h1 id="update-ticket">Update Ticket</h1>
+		<span id='update_message'>{{ update_msg }}</span>
 		<form method='POST' action="{{ url_for('update_page.update_post') }}">
  
 			<label for='ticket_name'> Name: </label>
-			<input type='text' name='ticket_name' id='update_name' />
+
+			<input type='text' name='ticket_name' id='update-ticket-name' required/> 
 	
 			<label for='quantity'> Quantity: </label>
-			<input type='text' name='quantity' id='update_quantity' />
+			<input type='text' name='quantity' id='update-quantity' required/> 
 	
 			<label for='price'> Price: </label>
-			<input type='text' name='price' id='update_price' />
+			<input type='text' name='price' id='update-price' required/> 
 	
 			<label for='expiration'> Expiration Date: </label>
-			<input type='text' name='expiration' id='update_expiration' />
+			<input type='text' name='expiration' id='update-expiration' required/> 
 	
-			<input type='submit' id='update_submit'/>
-            
+			<input type='submit' id='update-submit''/> 
 		</form>
 	</li>
      <h6 id='update_message'>{{update_message}}</h6>
 </ul>
 
 
-<a href='/logout'>logout</a>
+<a href='/logout' id="logout">logout</a>
+
 {% endblock %}
