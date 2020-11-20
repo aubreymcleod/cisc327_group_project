@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, request, session, render_template
+from flask import Blueprint, redirect, session, request, make_response
 import qa327.library.tickets as tic
 
 '''
@@ -16,19 +16,21 @@ def sell_get():
 
 @sell_page.route('/', methods=['POST'])
 def sell_post():
-    email = session['logged_in']
-    ticket_name = request.form.get('ticket_name')
-    quantity = request.form.get('quantity')
-    price = request.form.get('price')
-    expiration = request.form.get('expiration')
-
-    ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
-    if ticket:
-        #debug
-        sell_message='successfully listed the ticket(s)'
-        #print('debug: failed to post ticket')
-    else:
-    	sell_message='failed to list the ticket(s)'
+	email = session['logged_in']
+	ticket_name = request.form.get('ticket_name')
+	quantity = request.form.get('quantity')
+	price = request.form.get('price')
+	expiration = request.form.get('expiration')
 	
-    return render_template('index.html', sell_message=sell_message)
-    #return redirect('/', code=303)
+	
+	ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
+	if ticket:
+		sell_msg='failed to list the ticket(s)'
+		#print('debug: failed to post ticket')
+	else:
+		sell_msg='successfully listed the ticket(s)'
+	
+	resp = make_response(redirect('/', code=303))
+	resp.set_cookie('sell_msg', sell_msg)
+	
+	return resp

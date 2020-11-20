@@ -1,5 +1,7 @@
 # SeetGeek Assignment 3 - Failure Report
 
+`All backend case definitions have been added to testcases/backend`
+
 ###Section 1: Aubrey McLeod
 I implemented the test set from A1 for features R1 and R8. Additionally I implemented a set of blackbox tests for the backend's validation library (email address validation and password validation).
 
