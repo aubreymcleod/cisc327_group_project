@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, session, request, make_response
-
+import qa327.library.validation as valid
 import qa327.library.tickets as tic
 
 '''
@@ -25,7 +25,7 @@ def sell_post():
 	
 	sell_msg='failed to list the ticket(s)'
 	
-	if tic.validate_name(ticket_name) and tic.validate_quantity(quantity) and tic.validate_price(price) and tic.validate_date(expiration):
+	if valid.validate_name(ticket_name) and valid.validate_quantity(quantity) and valid.validate_price(price) and valid.validate_date(expiration):
 		ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
 		if ticket is None:
 			sell_msg='successfully listed the ticket(s)'

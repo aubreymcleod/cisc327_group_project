@@ -1,6 +1,5 @@
 from qa327.models import db,Ticket
 from datetime import date
-import re
 
 """
 This file defines any and all backend functions relating to operating on tickets.
@@ -36,32 +35,3 @@ def buy_ticket(ticket_name, quantity):
 
 def update_ticket(ticket_name, quantity, price, expiration):
     return None
-
-
-#Ticket validation functions
-def validate_ticket(ticket):
-	if validate_name(ticket.ticket_name) and validate_date(ticket.ticket_expiration) and validate_quantity(ticket.quantity) and validate_price(ticket.price):
-		return True #is valid
-	return False
-
-def validate_name(name):
-	if re.match("^[a-zA-Z0-9][a-zA-Z0-9 ]*$", name) and 6<=len(name)<=60:
-		return True
-	return False
-	
-def validate_date(expiration_date):
-	todays_date = date.today().strftime("%Y/%m/%d")
-	if re.match("^[0-9][0-9][0-9][0-9](0[1-9]|1[0-2])([0][1-9]|[1-2][0-9]|3[0-1])$", expiration_date) and expiration_date >= todays_date:
-		return True
-	return False
-	
-def validate_quantity(qty):
-	if 0<int(qty)<=100:
-		return True
-	return False
-	
-def validate_price(price):
-	if 10<=int(price)<=100:
-		return True
-	return False
-	
