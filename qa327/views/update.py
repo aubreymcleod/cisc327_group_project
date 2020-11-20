@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect,  request, render_template
+from flask import Blueprint, redirect,  request, make_response
 import qa327.library.tickets as tic
 
 '''
@@ -27,10 +27,14 @@ def update_post():
         #debug
         #print('debug: failed to update ticket')
         #print("successfully updated ticket listing")
-        update_message="successfully updated ticket listing"
+        update_msg="successfully updated ticket listing"
     
     else:
-        update_message="failed to update ticket"
-        
-    return render_template('index.html',update_message=update_message)
-    return redirect('/', code=303)
+        update_msg="failed to update ticket"
+
+    resp = make_response(redirect('/', code=303))
+    resp.set_cookie('update_msg', update_msg)
+	
+    return resp
+   
+

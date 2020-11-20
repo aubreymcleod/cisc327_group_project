@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect,  request, render_template
+from flask import Blueprint, redirect,  request, make_response
 import qa327.library.tickets as tic
 
 '''
@@ -21,10 +21,12 @@ def buy_post():
     ticket = tic.buy_ticket(ticket_name, quantity)
     if ticket:
         #debug
-        #print('debug: failed to buy ticket')
-       buy_message="successfully bought ticket(s)"
+        buy_msg='failed to buy ticket(s)'
     else:
-        buy_message="failed to buy ticket(s)"
+        buy_msg='successfully bought ticket(s)'
+      
 
-    return render_template('index.html',buy_message=buy_message)
-    return redirect('/', code=303)
+    resp = make_response(redirect('/', code=303))
+    resp.set_cookie('buy_msg', buy_msg)
+    return resp
+
