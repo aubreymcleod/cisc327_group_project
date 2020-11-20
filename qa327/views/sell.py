@@ -23,13 +23,12 @@ def sell_post():
 	price = request.form.get('price')
 	expiration = request.form.get('expiration')
 	
+	sell_msg='failed to list the ticket(s)'
 	
-	ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
-	if ticket:
-		sell_msg='failed to list the ticket(s)'
-		#print('debug: failed to post ticket')
-	else:
-		sell_msg='successfully listed the ticket(s)'
+	if tic.validate_name(ticket_name) and tic.validate_quantity(quantity) and tic.validate_price(price) and tic.validate_date(expiration):
+		ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
+		if ticket is None:
+			sell_msg='successfully listed the ticket(s)'
 	
 	resp = make_response(redirect('/', code=303))
 	resp.set_cookie('sell_msg', sell_msg)
