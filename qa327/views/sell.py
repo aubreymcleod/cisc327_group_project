@@ -1,4 +1,5 @@
 from flask import Blueprint, redirect, session, request, make_response
+
 import qa327.library.tickets as tic
 
 '''

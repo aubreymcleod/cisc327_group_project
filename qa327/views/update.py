@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect,  request
+from flask import Blueprint, redirect,  request, render_template
 import qa327.library.tickets as tic
 
 '''
@@ -25,6 +25,12 @@ def update_post():
     #If ticket exists return None, else print error message
     if ticket:
         #debug
-        print('debug: failed to update ticket')
-
+        #print('debug: failed to update ticket')
+        #print("successfully updated ticket listing")
+        update_message="successfully updated ticket listing"
+    
+    else:
+        update_message="failed to update ticket"
+        
+    return render_template('index.html',update_message=update_message)
     return redirect('/', code=303)
