@@ -1,5 +1,7 @@
 # SeetGeek Assignment 3 - Failure Report
 
+`All backend case definitions have been added to testcases/backend`
+
 ###Section 1: Aubrey McLeod
 I implemented the test set from A1 for features R1 and R8. Additionally I implemented a set of blackbox tests for the backend's validation library (email address validation and password validation).
 
@@ -88,4 +90,28 @@ So, user_get has a test for a user being successfully found and for one not. Use
 #####Backend Test Implementation Failures
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
-|USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the regiser_user so the errors are caught and the message is returned |
+|USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the register_user so the errors are caught and the message is returned |
+
+###Section 3: Melissa Zhu & Nicole Osayande
+
+We implemented R3.1 to R3.4 together, then split the rest (from R3.5 to R3.9.1 - Melissa, R3.9.2 - R3.11.2) from the test set in A1.
+
+###Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R3|4| This page shows a logout link, pointing to /logout | There's no id in HTML file to logout link.| Edited index.html to include id="logout" attribute.| 
+| |5| This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired.| There is no id in HTML file for individual ticket information. |Added id ticket-info in index.html |
+| |6| This page contains a form that a user can submit new tickets for sell.| There's no id in HTML file to sell ticket form fields.| Added id attributes to sell ticket form fields: ticket name, quantity, price, expiration and submit.|
+| |7| This page contains a form that a user can buy new tickets.| There's no id in HTML file to buy ticket form fields.| Added id attributes to buy ticket fields: ticket name, quantity and submit.|
+| |8| This page contains a form that a user can update existing tickets.| There's no id in HTML file to update form fields.| Added id attributes to update ticket fields: ticket name, quantity, price, expiration and submit.|
+| |9.1| The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| Added id attribute sell-message to index.html |
+| |9.2|The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| Added id attribute sell-message to index.html |
+| |10.1|The ticket-buying form can be posted to /buy. (pass)| #buy-message element does not exist in HTML file| Added id attribute buy-message to index.html |
+| | 10.2.| The ticket-buying form can be posted to /buy. (fail)| #buy-message element does not exist in HTML file| Added id attribute buy-message to index.html |
+| |11.1|The ticket-updating form can be posted to /update. (pass)| #update-message element does not exist in HTML file| Added id attribute update-message to index.html|
+| |11.2|The ticket-updating form can be posted to /update. (pass)| #update-message element does not exist in HTML file| Added id attribute update-message to index.html|
+
+####Backend Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|TICKET|Add Ticket Error|If an error is encountered then return an error message|There was no error handling in the tickets.py file|Added a try catch to the add_ticket so the errors are caught and the message is returned|
