@@ -90,10 +90,10 @@ So, user_get has a test for a user being successfully found and for one not. Use
 #####Backend Test Implementation Failures
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
-|USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the regiser_user so the errors are caught and the message is returned |
+|USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the register_user so the errors are caught and the message is returned |
 
-###Section 3: Melissa Zhu
-I implemented R3 (from R3.1 to R3.9.1) from the test set in A1.
+###Section 3: Melissa Zhu & Nicole Osayande
+We implemented R3.1 to R3.4 together, then split the rest (from R3.5 to R3.9.1 - Melissa, R3.9.2 - R3.11.2) from the test set in A1.
 
 ###Front End Test Implementation Failures
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
@@ -104,3 +104,13 @@ I implemented R3 (from R3.1 to R3.9.1) from the test set in A1.
 | |7| This page contains a form that a user can buy new tickets.| There's no id in HTML file to buy ticket form fields.| Added id attributes to buy ticket fields: ticket name, quantity and submit.|
 | |8| This page contains a form that a user can update existing tickets.| There's no id in HTML file to update form fields.| Added id attributes to update ticket fields: ticket name, quantity, price, expiration and submit.|
 | |9.1| The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| Added id attribute sell-message to index.html |
+| |9.2|The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| Added id attribute sell-message to index.html |
+| |10.1|The ticket-buying form can be posted to /buy. (pass)| #buy-message element does not exist in HTML file| Added id attribute buy-message to index.html |
+| | 10.2.| The ticket-buying form can be posted to /buy. (fail)| #buy-message element does not exist in HTML file| Added id attribute buy-message to index.html |
+| |11.1|The ticket-updating form can be posted to /update. (pass)| #update-message element does not exist in HTML file| Added id attribute update-message to index.html|
+| |11.2|The ticket-updating form can be posted to /update. (pass)| #update-message element does not exist in HTML file| Added id attribute update-message to index.html|
+
+####Backend Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|TICKET|Add Ticket Error|There was no error handling in the tickets.py file| handling in the tickets.py file	Added a try catch to the add_ticket so the errors are caught and the message is returned|

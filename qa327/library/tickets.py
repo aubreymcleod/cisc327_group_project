@@ -26,9 +26,12 @@ def prune_expired_tickets(tickets):
 #The following 3 functions will allow users to add a ticket to sell, buy a ticket and update a ticket
 def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
-    db.session.add(ticket)
-    db.session.commit()
-    return None
+    try:
+    	db.session.add(ticket)
+    	db.session.commit()
+    	return None
+    except:
+    	return 'error adding ticket'
 
 def buy_ticket(ticket_name, quantity):
     return None
