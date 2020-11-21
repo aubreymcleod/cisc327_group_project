@@ -93,6 +93,7 @@ So, user_get has a test for a user being successfully found and for one not. Use
 |USER| Registration Error | If an error is encountered then return an error message | There was no error handling in the user.py file | Added a try catch to the register_user so the errors are caught and the message is returned |
 
 ###Section 3: Melissa Zhu & Nicole Osayande
+
 We implemented R3.1 to R3.4 together, then split the rest (from R3.5 to R3.9.1 - Melissa, R3.9.2 - R3.11.2) from the test set in A1.
 
 ###Front End Test Implementation Failures
