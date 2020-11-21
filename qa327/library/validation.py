@@ -1,4 +1,6 @@
 from email.headerregistry import Address
+from datetime import date
+import re
 
 """
 This file defines all calls needed to validate UI fields on the
@@ -39,3 +41,39 @@ def validate_password(password):
     if len(password)>=6 and has_lower and has_uppercase and has_special:
         return True
     return False
+
+
+
+#Ticket validation functions
+def validate_ticket(ticket):
+	if validate_name(ticket.ticket_name) and validate_date(ticket.ticket_expiration) and validate_quantity(ticket.quantity) and validate_price(ticket.price):
+		return True #is valid
+	return False
+
+def validate_name(name):
+	if re.match("^[a-zA-Z0-9][a-zA-Z0-9 ]*$", name) and 6<=len(name)<=60:
+		return True
+	return False
+	
+def validate_date(expiration_date):
+	todays_date = date.today().strftime("%Y/%m/%d")
+	if re.match("^[0-9][0-9][0-9][0-9](0[1-9]|1[0-2])([0][1-9]|[1-2][0-9]|3[0-1])$", expiration_date) and expiration_date >= todays_date:
+		return True
+	return False
+	
+def validate_quantity(qty):
+	try:
+		if 0<int(qty)<=100:
+			return True
+	except:
+		return False
+	return False
+	
+def validate_price(price):
+	try:
+		if 10<=int(price)<=100:
+			return True
+	except:
+		return False
+	return False
+	
