@@ -113,4 +113,4 @@ We implemented R3.1 to R3.4 together, then split the rest (from R3.5 to R3.9.1 -
 ####Backend Test Implementation Failures
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
-|TICKET|Add Ticket Error|There was no error handling in the tickets.py file| handling in the tickets.py file	Added a try catch to the add_ticket so the errors are caught and the message is returned|
+|TICKET|Add Ticket Error|If an error is encountered then return an error message|There was no error handling in the tickets.py file|Added a try catch to the add_ticket so the errors are caught and the message is returned|
