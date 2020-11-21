@@ -1,239 +1,119 @@
-# validation class test cases by Aubrey McLeod
-The validation class implements a set of input validation methods which define what inputs are and are not allowed in a given field.
-These test cases will test the email and password validation using black box functionallity coverage testing.
+# users class test cases by Teaghan Laitar
+The users class implements the interactions involving the database and the users that wish to and are currently being stored there.
+The test cases will test the different functionalities of the parts of the user class using black box functionallity coverage testing.
 The functionallity of the user class (from the comments) will be tested to ensure that all requirements are met.
 These have been brocken down in to test cases as follows
 | Requirement Name | Requirement | Test Cases|
 |------------------|-------------|----------|
-|email|emails must conform to RFC5322| has a valid standard-form local address |
-| | | has a standard-form local address, but contains double dots |
-| | | has a standard-form local address, but starts with a dot |
-| | | has a standard-form local address, but ends with a dot |
-| | | has a valid quoted-form local address |
-| | | has an invalid quoted-form local address |
-| | | has a valid local address and a valid standard form domain |
-| | | has a valid local address and an invalid standard form domain |
-| | | has a valid local address and an IPv4 domain |
-| | | has a valid local address and an IPv6 domain |
-| | | has an invalid structure (no @) |
-| | | has an invalid structure (multiple unquoted @) |
-| | | has an invalid structure (invalid characters outside of quotes) |
-| | | has an invalid structure (quotes in wrong place) |
-| | | has an invalid structure (quotes in wrong place) |
-| | | has an invalid structure (too long) |
-| | | |
-|password| passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character | >6(1), special(1), upper(1), lower(1) |
-| | | >6(0), special(1), upper(1), lower(1) |
-| | | >6(1), special(0), upper(1), lower(1) |
-| | | >6(0), special(0), upper(1), lower(1) |
-| | | >6(1), special(1), upper(0), lower(1) |
-| | | >6(0), special(1), upper(0), lower(1) |
-| | | >6(1), special(0), upper(0), lower(1) |
-| | | >6(0), special(0), upper(0), lower(1) |
-| | | >6(1), special(1), upper(1), lower(0) |
-| | | >6(0), special(1), upper(1), lower(0) |
-| | | >6(1), special(0), upper(1), lower(0) |
-| | | >6(0), special(0), upper(1), lower(0) |
-| | | >6(1), special(1), upper(0), lower(0) |
-| | | >6(0), special(1), upper(0), lower(0) |
-| | | has none of the valid characters, but long enough to meet the 6 char requirements |
-| | | has none of the valid characters and too short |
+|users.1|Given an email the function should return the user if found, and None if not|If the user exists|
+| | |If the user does not exist|
+|users.2|A user login should be verified with email and password, if both match should return user, if not return None|Correct email and password|
+| | |Incorrect password|
+| | |Incorrect username|
+|users.3|The user should be added to the database when all registration credientals check out, if an error occurs and error should be reported|No unexpected errors|
+| | |Unexpected error while running add to the database|
+| | |Unexpected error while running commit to the database|
 
 
 The calls to the database will be patched to return either a test case of user data that would be returned from the data base if the user exists, or None if the user dones not exist.
 The calls to save to the data base will also be patched so the test cases do not actually save anything. 
 
+### Test_Data:
+	```
+	test_user = User(
+		email='test_frontend@test.com',
+		name='Test_frontend',
+		password=generate_password_hash('Pas$word'),
+		balance=500000
+	)
+	```
 
-### EMAIL.1 - emails must conform to RFC5322, standard local address -> True
-	Actions:
-	- Set test_email to "test_01@test.com"
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns True
+### Test case users.1.1 - Given an email the function should return the user if found, and None if not [user exists]
+	Mocking:
+	- Mock `get_user` to return a `test_user` instance
 	
-### EMAIL.2 - emails must conform to RFC5322, double dot standard local address -> false
 	Actions:
-	- Set test_email to "test..02@test.com"
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to a valid email (matching the test_user's email)
+	- Make a call to get_user() with test_email
+	- Validate that the call returns an ins
 	
-### EMAIL.3 - emails must conform to RFC5322, dot start standard local address -> false
-	Actions:
-	- Set test_email to ".test.03@test.com"
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+### Test case users.1.2 - Given an email the function should return the user if found, and None if not [user does not exist]
+	Mocking:
+	- Mock `get_user` to return None
 	
-### EMAIL.4 - emails must conform to RFC5322, dot end standard local address -> false
 	Actions:
-	- Set test_email to "test.04.@test.com"
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to an invalid email (not the test_user's email)
+	- Make a call to get_user() with test_email
+	- Validate that the call returns None
 	
-### EMAIL.5 - emails must conform to RFC5322, quoted local address -> true
-	Actions:
-	- Set test_email to "\"test..05\"@test.com"
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns True
+### Test case users.2.1 - A user login should be verified with email and password, if both match should return user, if not return None [pass]
+	Mocking:
+	- Mock `get_user` to return a `test_user` instance
 	
-### EMAIL.6 - emails must conform to RFC5322, quoted local address invalid -> false
 	Actions:
-	- Set test_email to '\"test06\\\"@test.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to a valid email (matching the test_user's email)
+	- Set the test_password to the matching and valid password (matching the test_user's password)
+	- Make call to login_user with test_email and test_password
+	- Validate that the call returns test user
 	
-### EMAIL.7 - emails must conform to RFC5322, valid domain -> True
-	Actions:
-	- Set test_email to 'test_07@test.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns True
+### Test case users.2.2 - A user login should be verified with email and password, if both match should return user, if not return None [fail with non matching password]
+	Mocking:
+	- Mock `get_user` to return a `test_user` instance
 	
-### EMAIL.8 - emails must conform to RFC5322, invalid domain -> False
 	Actions:
-	- Set test_email to 'test_08@'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to a valid email (matching the test_user's email)
+	- Set the test_password to the non matching and valid password (not the test_user's password)
+	- Make call to login_user with test_email and test_password
+	- Validate that the call returns None
 	
-### EMAIL.9 - emails must conform to RFC5322, domain ip4 -> True
-	Actions:
-	- Set test_email to 'test_09@[127.0.0.1]'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns True
+### Test case users.2.3 - A user login should be verified with email and password, if both match should return user, if not return None [fail with non existing user]
+	Mocking:
+	- Mock `get_user` to return None
 	
-### EMAIL.10 - emails must conform to RFC5322, domain ipv6 -> True
 	Actions:
-	- Set test_email to 'test_10@[IPv6:2001:db8::1]'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns True
+	- Set test_email to a non valid email (not the test_user's email)
+	- Set the test_password to any valid password
+	- Make call to login_user with test_email and test_password
+	- Validate that the call returns None
 	
-### EMAIL.11 - emails must conform to RFC5322, invalid structure no @ = False
-	Actions:
-	- Set test_email to 'test.11.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+### Test case users.3.1 - The user should be added to the database when all registration credientals check out, if an error occurs and error should be reported [passing registration]
+	Mocking:
+	- Mock `db.session.add` to return None
+	- Mock `db.session.commit` to return None
 	
-### EMAIL.12 - emails must conform to RFC5322, invalid structure = False
 	Actions:
-	- Set test_email to 't@e@s@t@12.test.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
-
-### EMAIL.13 - emails must conform to RFC5322, bad chars out of quotes = False
-	Actions:
-	- Set test_email to 'a\"\\ b(c)d,e:f;g<h>i[j\\k]l@example.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to a valid email
+	- Set test_name to a valid name
+	- Set test_password to a valid password
+	- Set test_password2 to a valid and matching password
+	- Set test_balance to an interger value
+	- Call register_user with all test information
+	- Validate that None is returned from the function call
 	
-### EMAIL.14 - emails must conform to RFC5322, bad quote placement = False
-	Actions:
-	- Set test_email to 'just"not"right@example.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+### Test case users.3.2 - The user should be added to the database when all registration credientals check out, if an error occurs and error should be reported [Error from .add]
+	Mocking:
+	- Mock `db.session.add` to return a mocked error
+	- Mock `db.session.commit` to return None
 	
-### EMAIL.15 - emails must conform to RFC5322, local too long = False
 	Actions:
-	- Set test_email to '1234567890123456789012345678901234567890123456789012345678901234+x@example.com'
-	- Make a call to validate_email_address() with test_email
-	- Validate that the call returns False
+	- Set test_email to a valid email
+	- Set test_name to a valid name
+	- Set test_password to a valid password
+	- Set test_password2 to a valid and matching password
+	- Set test_balance to an interger value
+	- Call register_user with all test information
+	- Validate that and error is returned from the function call
 	
+### Test case users.3.3 - The user should be added to the database when all registration credientals check out, if an error occurs and error should be reported [Error from .commit]
+	Mocking:
+	- Mock `db.session.add` to return None
+	- Mock `db.session.commit` to return a mocked error
 	
-	
-### PW.1 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(1), upper(1), lower(1) => True
 	Actions:
-	- Set test_password to 'Valid_Password'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns True
-	
-### PW.2 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(1), upper(1), lower(1) => False
-	Actions:
-	- Set test_password to 'In_'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.3 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(0), upper(1), lower(1) => False
-	Actions:
-	- Set test_password to 'InvalidPassword'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.4 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(0), upper(1), lower(1) => False
-	Actions:
-	- Set test_password to 'Inval'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.5 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(1), upper(0), lower(1) => False
-	Actions:
-	- Set test_password to 'invalid_password'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.6 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(1), upper(0), lower(1) => False
-	Actions:
-	- Set test_password to 'inva_'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.7 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(0), upper(0), lower(1) => False
-	Actions:
-	- Set test_password to 'invalidpassword'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.8 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(0), upper(0), lower(1) => False
-	Actions:
-	- Set test_password to 'inval'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.9 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(1), upper(1), lower(0) => False
-	Actions:
-	- Set test_password to 'INVALID_PASSWORD'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.10 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(1), upper(1), lower(0) => False
-	Actions:
-	- Set test_password to 'INVA_'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.11 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(0), upper(1), lower(0) => False
-	Actions:
-	- Set test_password to 'INVALIDPASSWORD'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.12 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(0), upper(1), lower(0) => False
-	Actions:
-	- Set test_password to 'INVAL'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-
-### PW.13 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(1), special(1), upper(0), lower(0) => False
-	Actions:
-	- Set test_password to '______'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.14 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(1), upper(0), lower(0) => False
-	Actions:
-	- Set test_password to '_'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.15 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - test: >6(0), special(0), upper(0), lower(0) => False
-	Actions:
-	- Set test_password to ''
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.16 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - invalid characters short => False
-	Actions:
-	- Set test_password to '\0\0\0\0\0\0'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
-	
-### PW.17 - passwords must be of length 6 or greater, contain one special character, one upper case character, one lowercase character - invalid characters short => False
-	Actions:
-	- Set test_password to '\0\0\0'
-	- Make a call to validate_password() with test_password
-	- Validate that the call returns False
+	- Set test_email to a valid email
+	- Set test_name to a valid name
+	- Set test_password to a valid password
+	- Set test_password2 to a valid and matching password
+	- Set test_balance to an interger value
+	- Call register_user with all test information
+	- Validate that and error is returned from the function call
