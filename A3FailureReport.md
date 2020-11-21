@@ -99,8 +99,8 @@ I implemented R3 (from R3.1 to R3.9.1) from the test set in A1.
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
 |R3|4| This page shows a logout link, pointing to /logout | There's no id in HTML file to logout link.| Edited index.html to include id="logout" attribute.| 
-| |5| This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired.| There is no id in HTML file for individual ticket information. | |
+| |5| This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired.| There is no id in HTML file for individual ticket information. |Added id ticket-info in index.html |
 | |6| This page contains a form that a user can submit new tickets for sell.| There's no id in HTML file to sell ticket form fields.| Added id attributes to sell ticket form fields: ticket name, quantity, price, expiration and submit.|
 | |7| This page contains a form that a user can buy new tickets.| There's no id in HTML file to buy ticket form fields.| Added id attributes to buy ticket fields: ticket name, quantity and submit.|
 | |8| This page contains a form that a user can update existing tickets.| There's no id in HTML file to update form fields.| Added id attributes to update ticket fields: ticket name, quantity, price, expiration and submit.|
-| |9.1| The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| |
+| |9.1| The ticket-selling form can be posted to /sell. (pass)| #sell-message element does not exist in HTML file| Added id attribute sell-message to index.html |
