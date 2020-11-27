@@ -47,18 +47,3 @@ def update_post():
     resp=make_response(redirect('/', code=303))
     resp.set_cookie('update_msg', update_msg)
     return resp
-
-    '''ticket = tic.update_ticket(ticket_name, quantity, price, expiration)
-    #If ticket exists return None, else print error message
-    if ticket:
-        #debug
-        #print('debug: failed to update ticket')
-        #print("successfully updated ticket listing")
-        update_message="successfully updated ticket listing"
-    
-    else:
-        update_message="failed to update ticket"
-        
-    return render_template('index.html',update_message=update_message)
-    return redirect('/', code=303)
-    '''
