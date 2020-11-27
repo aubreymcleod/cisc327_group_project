@@ -22,13 +22,26 @@ def sell_post():
 	quantity = request.form.get('quantity')
 	price = request.form.get('price')
 	expiration = request.form.get('expiration')
-	
-	sell_msg='failed to list the ticket(s)'
-	
-	if valid.validate_name(ticket_name) and valid.validate_quantity(quantity) and valid.validate_price(price) and valid.validate_date(expiration):
+	errors = []
+	sell_msg='failed to list the ticket(s): '
+
+	if not valid.validate_name(ticket_name):
+		errors.append("The name of the ticket names must be longer than 6-characters, shorter than 60 characters, and be alpha-numeric with spaces (spaces are not allowed at the beginning or the end)")
+	if not valid.validate_quantity(quantity):
+		errors.append("You may only sell between 1 and 100 tickets at a time with SeetGeek")
+	if not valid.validate_price(price):
+		errors.append("Prices must be between $10 and $100 (whole numbers only)")
+	if not valid.validate_date(expiration):
+		errors.append("You cannot sell expired tickets")
+	if len(errors) == 0:
 		ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)
 		if ticket is None:
-			sell_msg='successfully listed the ticket(s)'
+			sell_msg='Successfully listed the ticket(s)'
+		else:
+			errors.append(ticket)
+
+	if len(errors) > 0:
+		sell_msg += ", ".join(errors)+"."
 	
 	resp = make_response(redirect('/', code=303))
 	resp.set_cookie('sell_msg', sell_msg)

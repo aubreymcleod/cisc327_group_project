@@ -23,15 +23,28 @@ def prune_expired_tickets(tickets):
 
 	return valid_tickets
 
+
+def get_existing_tickets(name, qty, pr, ex, email):
+    query = db.session.query(Ticket)
+    query = query.filter(Ticket.owners_email==email)
+    query = query.filter(Ticket.ticket_name==name)
+    tickets = query.all()
+    return tickets
+
 #The following 3 functions will allow users to add a ticket to sell, buy a ticket and update a ticket
 def add_ticket(ticket_name, quantity, price, expiration, owners_email):
-    ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
-    try:
-    	db.session.add(ticket)
-    	db.session.commit()
-    	return None
-    except:
-    	return 'error adding ticket'
+    existing = get_existing_tickets(ticket_name, quantity, price, expiration, owners_email)
+    if existing == []:
+        ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
+        db.session.add(ticket)
+        db.session.commit()
+        return None
+    else:
+        if existing[0].ticket_name == ticket_name:
+            return "Failed to list tickets, you have already posted a ticket with that name; if you are updating a batch, please use the update form"
+        if existing[0].price != int(price):
+            return "Failed to list tickets, please list of this kind of ticket at one price"
+    return "Failed to list tickets."
 
 def buy_ticket(ticket_name, quantity):
     return None

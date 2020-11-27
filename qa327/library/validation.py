@@ -51,7 +51,7 @@ def validate_ticket(ticket):
 	return False
 
 def validate_name(name):
-	if re.match("^[a-zA-Z0-9][a-zA-Z0-9 ]*$", name) and 6<=len(name)<=60:
+	if re.match("^[a-zA-Z0-9][a-zA-Z0-9 ]*[a-zA-Z0-9]$", name) and 6<=len(name)<=60:
 		return True
 	return False
 	
