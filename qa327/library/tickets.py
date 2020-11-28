@@ -72,11 +72,10 @@ def buy_ticket(ticket_name, quantity, user_balance, email):
         total_cost = float(cost) * 1.4
         if total_cost > user_balance:
             return " User balance too low"
-        
-        # Delete the ticket from the data base
-        db.session.delete(ticket)
-        db.session.commit()
-        #usr.reduce_balance(email, total_cost)
+
+        # Call update_ticket function in users to update database after ticket is successfully bought
+        update_ticket(ticket_name, ticket.quantity - int(quantity), ticket.price, ticket.expiration, ticket.owners_email)
+        usr.reduce_balance(email, total_cost)
         # Return None for a successful buy
         return None
     else:
