@@ -52,15 +52,24 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     return "Failed to list tickets."
 
 def buy_ticket(ticket_name, quantity):
+
+    # Get tickets with same name
     available_tickets = get_ticket(ticket_name)
+
+    # Check that there are tickets of that name
     if len(available_tickets) !=0:
+        # Pick the first one, in the case that there are more then one
         ticket = available_tickets[0]
+
         # Checks go here
+
+        # Delete the ticket from the data base
         db.session.delete(ticket)
         db.session.commit()
-    
+        # Return None for a successful buy
         return None
     else:
+        # Return -1 if an error occurs
         return -1
 
 def update_ticket(ticket_name, quantity, price, expiration, owners_email):
