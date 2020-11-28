@@ -1,6 +1,7 @@
-from flask import Blueprint, redirect,  request, render_template
+from flask import Blueprint, redirect,  request, render_template, make_response, session
 import qa327.library.tickets as tic
-
+import qa327.library.validation as valid
+import qa327.library.users as usr
 '''
 The following functions allow the user to fill out ticket name and quantity
 when buying a ticket. If the ticket fails to post, users are given an error
@@ -15,16 +16,42 @@ def buy_get():
 
 @buy_page.route('/', methods=['POST'])
 def buy_post():
-    ticket_name = request.form.get('ticket_name')
-    quantity = request.form.get('quantity')
+    ticket_name = request.form.get('ticket_name')   # Set ticket name from form
+    email=session['logged_in']                      # Set email from logged in session
+    quantity = request.form.get('quantity')         # Set quanity from from
+    errors=[]                                       # Create an empty arry to store errors
+    buy_msg = 'Failed to buy ticket. '              # Set buy_msg to a failed message
 
-    ticket = tic.buy_ticket(ticket_name, quantity)
-    if ticket:
-        #debug
-        #print('debug: failed to buy ticket')
-       buy_message="successfully bought ticket(s)"
-    else:
-        buy_message="failed to buy ticket(s)"
+    user = usr.get_user(email)
+    balance = user.balance/100
+    
+    
+    # Check that the ticket name meets requirements
+    if not valid.validate_name(ticket_name):
+        errors.append("The name of the ticket must be no more than 60 characters")
+    # Check that the quantity is valid
+    if not valid.validate_quantity(quantity) and int (quantity)!=0:
+         errors.append("You may only buy between 0 and 100 tickets inclusive")   
 
-    return render_template('index.html',buy_message=buy_message)
-    return redirect('/', code=303)
+    # If no errors in input
+    if len(errors) == 0:
+
+        # Try to buy the ticket
+        ticket = tic.buy_ticket(ticket_name, quantity, balance, email)
+
+        # If successfully bought change buy msg to show that
+        if ticket is None:
+            buy_msg = 'Sucessfully bought the ticket(s).'
+
+        # If failed add to errors
+        else:
+            errors.append(ticket)
+            buy_msg = buy_msg + str(ticket)
+
+    # If there are errors in input create message
+    elif len(errors) > 0:
+        buy_msg += ", ".join(errors)+"." #adding all of the errors to the update message
+
+    resp=make_response(redirect('/', code=303)) 
+    resp.set_cookie('buy_msg', buy_msg)
+    return resp

@@ -314,7 +314,7 @@ class FrontEndHomePageTest(BaseCase):
 		# click '#sell-submit'
 		self.click('#sell-submit')
 		# validate that the '#sell_message' element shows 'successfully listed the ticket(s)'
-		self.assert_text('successfully listed the ticket(s)', '#sell_message')
+		self.assert_text('Successfully listed the ticket(s)', '#sell_message')
 		# open /logout (clean up)
 		self.open(base_url + '/logout')
 
