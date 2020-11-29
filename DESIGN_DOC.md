@@ -2,7 +2,7 @@
 Design Document
 </h1>
 
-### qa327 Structure:
+<h3> qa327 Structure: </h3>
 
 ```
 .
@@ -31,7 +31,7 @@ Design Document
     └── register.html ===========> defines the registration page.
 ```
 
-###Function definitions:
+<h3> Function definitions </h3>
 
 | Directory | File | Method | Description |
 |-----------|------|--------|-------------|
