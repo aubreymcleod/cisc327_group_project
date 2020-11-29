@@ -13,6 +13,11 @@ def get_all_tickets():
     tickets = Ticket.query.all() #list of all tickets in database
     return tickets
 
+def get_ticket(ticket_name):
+    query = db.session.query(Ticket)
+    query = query.filter(Ticket.ticket_name==ticket_name)
+    ticket = query.all()
+    return ticket
 
 def prune_expired_tickets(tickets):
     """
@@ -61,7 +66,25 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     return "Failed to list tickets."
 
 def buy_ticket(ticket_name, quantity):
-    return None
+
+    # Get tickets with same name
+    available_tickets = get_ticket(ticket_name)
+
+    # Check that there are tickets of that name
+    if len(available_tickets) !=0:
+        # Pick the first one, in the case that there are more then one
+        ticket = available_tickets[0]
+
+        # Checks go here
+
+        # Delete the ticket from the data base
+        db.session.delete(ticket)
+        db.session.commit()
+        # Return None for a successful buy
+        return None
+    else:
+        # Return -1 if an error occurs
+        return -1
 
 def update_ticket(ticket_name, quantity, price, expiration, owners_email):
     #owners_email - we only want users who actually
