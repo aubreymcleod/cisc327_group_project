@@ -15,6 +15,10 @@ def get_all_tickets():
 
 
 def prune_expired_tickets(tickets):
+    """
+    this function takes a list of tickets, and returns all tickets in that list that are not expired.
+    :return: returns all nonexpired tickets from a list of tickets.
+    """
 	todays_date = date.today().strftime("%Y/%m/%d")
 	valid_tickets = []			#list of all non expired tickets
 	for ticket in tickets:
@@ -25,6 +29,10 @@ def prune_expired_tickets(tickets):
 
 
 def get_existing_tickets(name, qty, pr, ex, email):
+    """
+    this function takes a ticket name an owners_email and returns all tickets that meet that description in the database
+    :return: returns tickets with names matching names, owned by a given seller.
+    """
     query = db.session.query(Ticket)
     query = query.filter(Ticket.owners_email==email)
     query = query.filter(Ticket.ticket_name==name)
@@ -33,6 +41,11 @@ def get_existing_tickets(name, qty, pr, ex, email):
 
 #The following 3 functions will allow users to add a ticket to sell, buy a ticket and update a ticket
 def add_ticket(ticket_name, quantity, price, expiration, owners_email):
+    """
+    this function takes a defintion of a ticket, ensures that the seller has not already posted the ticket, then either:
+    posts the new ticket to the database, or
+    returns an error message explaining why the ticket could not be posted.
+    """
     existing = get_existing_tickets(ticket_name, quantity, price, expiration, owners_email)
     if existing == []:
         ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
