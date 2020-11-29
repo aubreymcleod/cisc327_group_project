@@ -1,5 +1,5 @@
 <h1>
-Design Document.
+Design Document
 </h1>
 
 ### qa327 Structure:
@@ -30,6 +30,7 @@ Design Document.
     ├── login.html ==============> defines the login page.
     └── register.html ===========> defines the registration page.
 ```
+
 ###Function definitions:
 
 | Directory | File | Method | Description |
