@@ -1,4 +1,4 @@
-#Design Document:
+###Design Document:
 #### qa327 Structure:
 ```
 .
@@ -26,7 +26,7 @@
     ├── login.html ==============> defines the login page.
     └── register.html ===========> defines the registration page.
 ```
-##Function definitions:
+####Function definitions:
 | Directory | File | Method | Description |
 |-----------|------|--------|-------------|
 | `library`   | `authenticate.py` | `authenticate(inner_function)` | Takes a function, and only allows it to be run if the user is logged in. |
