@@ -1,5 +1,6 @@
 from qa327.models import db,Ticket
 from datetime import date
+import qa327.library.users as usr
 
 """
 This file defines any and all backend functions relating to operating on tickets.
@@ -65,8 +66,7 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
             return "Please update the quantity/price of your existing tickets instead of posting a new batch."
     return "Failed to list tickets."
 
-def buy_ticket(ticket_name, quantity):
-
+def buy_ticket(ticket_name, quantity, user_balance, email):
     # Get tickets with same name
     available_tickets = get_ticket(ticket_name)
 
@@ -75,16 +75,24 @@ def buy_ticket(ticket_name, quantity):
         # Pick the first one, in the case that there are more then one
         ticket = available_tickets[0]
 
-        # Checks go here
+        # Check if there are enough tickets to buy
+        if ticket.quantity < int(quantity):
+            return " Too few tickets available"
 
-        # Delete the ticket from the data base
-        db.session.delete(ticket)
-        db.session.commit()
+        # Checks if user has enough to buy tickets
+        cost = ticket.price * int(quantity)
+        total_cost = float(cost) * 1.4
+        if total_cost > user_balance:
+            return " User balance too low"
+
+        # Call update_ticket function in users to update database after ticket is successfully bought
+        update_ticket(ticket_name, ticket.quantity - int(quantity), ticket.price, ticket.expiration, ticket.owners_email)
+        usr.reduce_balance(email, total_cost)
         # Return None for a successful buy
         return None
     else:
         # Return -1 if an error occurs
-        return -1
+        return "Ticket not found"
 
 def update_ticket(ticket_name, quantity, price, expiration, owners_email):
     #owners_email - we only want users who actually
@@ -111,4 +119,3 @@ def update_ticket(ticket_name, quantity, price, expiration, owners_email):
         #ticket not found
         return 'failed to find a ticket update'
         
-

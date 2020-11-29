@@ -53,3 +53,16 @@ def register_user(email, name, password, password2, balance):
         return None
     except:
         return 'error'
+    
+
+def reduce_balance(email, cost):
+    """
+    This function updates the balance in the database after tickets are successfully purchased.
+    """
+    user = get_user(email)
+    user.balance = user.balance - (cost * 100)
+    db.session.commit()
+    return None
+    
+
+    
