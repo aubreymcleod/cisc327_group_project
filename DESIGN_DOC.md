@@ -53,6 +53,7 @@ Design Document
 | | | `validate_quantity(qty)`  | Tests to ensure that a given number of tickets falls within the specified range. |
 | | | `validate_price(price)` | Tests to ensure that a given price falls within the specified range. |
 | | | |
+| | | |
 | `views` | `buy.py` | `buy_get()`| Redirects a user back to their homepage if they attempt to access the buy route through get request. |
 | | | `buy_post()` | DESCRIPTION HERE |
 | | `home.py` | `profile(user)` | Displays a given users homepage; if that user is not logged in redirects to login. |
