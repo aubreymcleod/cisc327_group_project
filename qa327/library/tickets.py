@@ -28,7 +28,7 @@ def prune_expired_tickets(tickets):
     return valid_tickets
 
 
-def get_existing_tickets(name, qty, pr, ex, email):
+def get_existing_tickets(name,email):
     """
     this function takes a ticket name an owners_email and returns all tickets that meet that description in the database
     :return: returns tickets with names matching names, owned by a given seller.
@@ -47,7 +47,7 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     returns an error message explaining why the ticket could not be posted.
     """
     #get any existing tickets of the same name posted by the user.
-    existing = get_existing_tickets(ticket_name, quantity, price, expiration, owners_email)
+    existing = get_existing_tickets(ticket_name, owners_email)
     if existing == []: #if no existing tickets were found, add a new ticket to the database
         ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
         db.session.add(ticket)
@@ -63,5 +63,29 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
 def buy_ticket(ticket_name, quantity):
     return None
 
-def update_ticket(ticket_name, quantity, price, expiration):
-    return None
+def update_ticket(ticket_name, quantity, price, expiration, owners_email):
+    #owners_email - we only want users who actually
+    #own a ticket to be able to update a ticket
+    existing_ticket=get_existing_tickets(ticket_name, owners_email)
+    if existing_ticket != []:
+        #when we create the database we create a list of ticket objects
+        #we can only update if we find a ticket, so if empty, ticket doesn't exist
+        ticket = existing_ticket[0] #theoretically there will only be one ticket returned
+        #special case: if the user wants to remove ticket post, update the quantity to zero, remove ticket from database
+        if int(quantity)==0:
+            db.session.delete(ticket)
+            db.session.commit()
+            return None
+        else:
+            ticket.quantity=int(quantity) #making sure the quantity is updated
+
+        ticket.price=int(price)
+        ticket.expiration=expiration
+        db.session.commit()
+        
+        return None
+    else:
+        #ticket not found
+        return 'failed to find a ticket update'
+        
+
