@@ -19,13 +19,13 @@ def prune_expired_tickets(tickets):
     this function takes a list of tickets, and returns all tickets in that list that are not expired.
     :return: returns all nonexpired tickets from a list of tickets.
     """
-	todays_date = date.today().strftime("%Y/%m/%d")
-	valid_tickets = []			#list of all non expired tickets
-	for ticket in tickets:
-		if ticket.expiration >= todays_date:
-			valid_tickets.append(ticket)
+    todays_date = date.today().strftime("%Y/%m/%d")
+    valid_tickets = []			#list of all non expired tickets
+    for ticket in tickets:
+        if ticket.expiration >= todays_date:
+            valid_tickets.append(ticket)
 
-	return valid_tickets
+    return valid_tickets
 
 
 def get_existing_tickets(name, qty, pr, ex, email):
