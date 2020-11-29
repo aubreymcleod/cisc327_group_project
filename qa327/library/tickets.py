@@ -66,7 +66,6 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
             return "Please update the quantity/price of your existing tickets instead of posting a new batch."
     return "Failed to list tickets."
 
-
 def buy_ticket(ticket_name, quantity, user_balance, email):
     # Get tickets with same name
     available_tickets = get_ticket(ticket_name)

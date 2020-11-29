@@ -2,6 +2,7 @@ from flask import Blueprint, redirect,  request, render_template, make_response,
 import qa327.library.tickets as tic
 import qa327.library.validation as valid
 import qa327.library.users as usr
+
 '''
 The following functions allow the user to fill out ticket name and quantity
 when buying a ticket. If the ticket fails to post, users are given an error
@@ -24,7 +25,6 @@ def buy_post():
 
     user = usr.get_user(email)
     balance = user.balance/100
-    
     
     # Check that the ticket name meets requirements
     if not valid.validate_name(ticket_name):
