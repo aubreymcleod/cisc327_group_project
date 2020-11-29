@@ -1,7 +1,9 @@
 <h1>
 Design Document.
 </h1>
-#### qa327 Structure:
+
+### qa327 Structure:
+
 ```
 .
 ├── __init__.py =================> defines our flask app instance.
@@ -28,7 +30,8 @@ Design Document.
     ├── login.html ==============> defines the login page.
     └── register.html ===========> defines the registration page.
 ```
-####Function definitions:
+###Function definitions:
+
 | Directory | File | Method | Description |
 |-----------|------|--------|-------------|
 | `library`   | `authenticate.py` | `authenticate(inner_function)` | Takes a function, and only allows it to be run if the user is logged in. |
