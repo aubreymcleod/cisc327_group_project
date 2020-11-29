@@ -46,17 +46,18 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     posts the new ticket to the database, or
     returns an error message explaining why the ticket could not be posted.
     """
+    #get any existing tickets of the same name posted by the user.
     existing = get_existing_tickets(ticket_name, quantity, price, expiration, owners_email)
-    if existing == []:
+    if existing == []: #if no existing tickets were found, add a new ticket to the database
         ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
         db.session.add(ticket)
         db.session.commit()
         return None
-    else:
-        if existing[0].ticket_name == ticket_name:
-            return "Failed to list tickets, you have already posted a ticket with that name; if you are updating a batch, please use the update form"
-        if existing[0].price != int(price):
-            return "Failed to list tickets, please list of this kind of ticket at one price"
+    else: #otherwise,
+        if existing[0].ticket_name == ticket_name:  #return an error if the name was in use
+            return "You have already posted a ticket with that name; if you are updating a batch, please use the update form"
+        if existing[0].price != int(price): #return an error if the user is attempting to list the same batch at a new price.
+            return "Please update the quantity/price of your existing tickets instead of posting a new batch."
     return "Failed to list tickets."
 
 def buy_ticket(ticket_name, quantity):
