@@ -40,11 +40,12 @@ Design Document
 | | | `prune_expired_tickets(tickets)` | Takes a list of Ticket objects and returns that same list with all expired tickets removed.|
 | | | `get_existing_tickets(name, email)` | Takes a name for tickets and an owners email and returns all matching tickets in the database. |
 | | | `add_ticket(ticket_name, quantity, price, expiration, owners_email)` | Adds a new Ticket object to the database from the specified parameters. |
-| | | `buy_ticket(ticket_name, quantity)` | DESCRIPTION HERE |
-| | | `update_ticket(ticket_name, quantity, price, expiration)` | Checks to see if a ticket exists in the database; if the ticket exists, it updates the ticket attributes and returns none, else it returns an error message indicating it failed to find a ticket to update |
+| | | `buy_ticket(ticket_name, quanitity, user_balance, email)` | Gets the ticket the user wants to purchase, checks that their is enough available and that the user has enought money. If errors occur then return an error message, if not remove the tickets from the database and alter the users balance. |
+| | | `update_ticket(ticket_name, quantity, price, expiration)` | Checks to see if a ticket exists in the database; if the ticket exists it updates the attributes of the ticket object and returns None, else it returns an error message indicating it failed to find a ticket update |
 | | `users.py` | `get_user(email)` | Gets a user from the database from a given email address. |
 | | | `login_user(email, password)` | Returns a user from the database if the username and password are valid. |
 | | | `register_user(email, name, password, password2, balance)` | Adds a new user to the database. |
+| | | `reduce_balance(email, cost)` | Takes a user's email and a integer for a dollar value. Reduces the user's balance by the given cost. |
 | | `validation.py` | `validate_email_address(email)` | Tests to ensure that a given email meets RFC 5322 standards. |
 | | | `validate_password(password)` | Tests to ensure that an email meets the specifications. |
 | | | `validate_ticket(ticket)` | Tests to ensure that a given ticket is valid (valid name, date, price, quantity, etc). |
@@ -55,7 +56,7 @@ Design Document
 | | | |
 | | | |
 | `views` | `buy.py` | `buy_get()`| Redirects a user back to their homepage if they attempt to access the buy route through get request. |
-| | | `buy_post()` | DESCRIPTION HERE |
+| | | `buy_post()` | Validates the user input that is put into the buy form, gives an error message if their are any otherwise calls the buy_ticket() funciton. |
 | | `home.py` | `profile(user)` | Displays a given users homepage; if that user is not logged in redirects to login. |
 | | `login.py` | `login_get()` | Directs a user to the homepage route if they are logged in, otherwise displays the login screen. |
 | | | `login_post()` | Attempts to log a user in (redirects to homepage if successful, else redirects to login page). |
