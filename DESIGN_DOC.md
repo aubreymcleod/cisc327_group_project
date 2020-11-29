@@ -41,7 +41,7 @@ Design Document
 | | | `get_existing_tickets(name, email)` | Takes a name for tickets and an owners email and returns all matching tickets in the database. |
 | | | `add_ticket(ticket_name, quantity, price, expiration, owners_email)` | Adds a new Ticket object to the database from the specified parameters. |
 | | | `buy_ticket(ticket_name, quantity)` | DESCRIPTION HERE |
-| | | `update_ticket(ticket_name, quantity, price, expiration)` | DESCRIPTION HERE |
+| | | `update_ticket(ticket_name, quantity, price, expiration)` | Checks to see if a ticket exists in the database; if the ticket exists, it updates the ticket attributes and returns none, else it returns an error message indicating it failed to find a ticket to update |
 | | `users.py` | `get_user(email)` | Gets a user from the database from a given email address. |
 | | | `login_user(email, password)` | Returns a user from the database if the username and password are valid. |
 | | | `register_user(email, name, password, password2, balance)` | Adds a new user to the database. |
@@ -64,5 +64,5 @@ Design Document
 | | | `register_post()` | Attempts to register a new user in the database. Displays the login screen if the registration was successful, otherwise reloads the page. |
 | | `sell.py` | `sell_get()` | Redirects the user to the homepage if they attempt to access the sell route through GET request. |
 | | | `sell_post()` | Attempts to list a new batch of tickets, then redirects the user back to the homepage; failure results in an error message, success results in a successful message. |
-| | `update.py` | `update_get()` | DESCRIPTION HERE. |
-| | | `update_post()` | DESCRIPTION HERE. |
+| | `update.py` | `update_get()` | Redirects the user to the homepage if they attempt to access the update route through GET request |
+| | | `update_post()` | Checks that the parameters of the ticket object are all valid and then redirects the user back to the hompage; success results in a successful message returned, failure results in an error message |
