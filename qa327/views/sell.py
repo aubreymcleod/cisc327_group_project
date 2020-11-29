@@ -11,12 +11,19 @@ to the homepage
 
 sell_page = Blueprint('sell_page', __name__)
 
+# if someone is trying to GET this route, redirect them back to the homepage.
 @sell_page.route('/', methods=['GET'])
 def sell_get():
     return redirect('/', code=303)
 
+
 @sell_page.route('/', methods=['POST'])
 def sell_post():
+	"""
+	When someone tries to post a ticket listing to this route,
+	validate the details, and if validation is successful
+	attempt to list the ticket; may fail if ticket has already been posted by user.
+	"""
 	email = session['logged_in']
 	ticket_name = request.form.get('ticket_name')
 	quantity = request.form.get('quantity')
@@ -40,10 +47,10 @@ def sell_post():
 		else:
 			errors.append(ticket)
 
+	#merge the errors together.
 	if len(errors) > 0:
 		sell_msg += ", ".join(errors)+"."
 	
 	resp = make_response(redirect('/', code=303))
 	resp.set_cookie('sell_msg', sell_msg)
-	
 	return resp
