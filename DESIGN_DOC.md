@@ -2,7 +2,7 @@
 Design Document
 </h1>
 
-<h3> qa327 Structure: </h3>
+<h3> qa327 Structure </h3>
 
 ```
 .
