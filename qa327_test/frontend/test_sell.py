@@ -40,11 +40,6 @@ test_tickets = [
            owners_email='test_frontend@test.com')
 ]
 
-MockDB = []
-
-def MockAdd(Ticket):
-    MockDB.append(Ticket)
-    return None
 
 class FrontEndSellTest(BaseCase):
     # Test case R4.1.1 - The name of the ticket has to be alphanumeric-only, and space allowed only if it is not the
