@@ -21,7 +21,7 @@ def buy_post():
     email=session['logged_in']                      # Set email from logged in session
     quantity = request.form.get('quantity')         # Set quanity from from
     errors=[]                                       # Create an empty arry to store errors
-    buy_msg = 'Failed to buy ticket. '              # Set buy_msg to a failed message
+    buy_msg = 'Failed to buy the ticket(s): '       # Set buy_msg to a failed message
 
     user = usr.get_user(email)
     balance = user.balance/100
@@ -43,7 +43,7 @@ def buy_post():
 
         # If successfully bought change buy msg to show that
         if ticket is None:
-            buy_msg = 'Sucessfully bought the ticket(s).'
+            buy_msg = 'Successfully bought the ticket(s).'
 
         # If failed add to errors
         else:

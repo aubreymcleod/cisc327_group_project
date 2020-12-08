@@ -169,7 +169,7 @@ class FrontEndR2_6_7(BaseCase):
         self.type("#password", "Pas$word")                                  ## Enter valid password
         self.type("#password2", "Pa$sword")                                 ## Enter valid password but different
         self.click('input[type="submit"]')                                  ## Submit form
-        self.assert_text("The passwords format is incorrect", '#message')   ## Check error message
+        self.assert_text("Passwords format is incorrect", '#message')   ## Check error message
 
     ## Test case R2.7.1 - User name has to be non-empty, alphanumeric-only, and space allowed only if it is not the first or the last character. [pass with space]
     @patch('qa327.library.users.register_user', return_value=None)

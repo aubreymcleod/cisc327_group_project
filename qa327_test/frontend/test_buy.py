@@ -48,7 +48,7 @@ class FrontEndR6_1(BaseCase):
         self.type("#buy-ticket-name", "TestTicket")     ## Enter valid ticket name
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test case R6.1.2 - name of the ticket has to be alphanumeric-only, and space allowed on if it is not the first or the last character. [fail with space at tail]
@@ -181,7 +181,7 @@ class FrontEndR6_2(BaseCase):
         self.type("#buy-ticket-name", "TestTicket")     ## Enter valid ticket
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.2.2 - name of the ticket is no longer than 60 characters and at least 6 [failed too long]
@@ -229,7 +229,7 @@ class FrontEndR6_2(BaseCase):
         self.type("#buy-ticket-name", "SicCha")         ## Enter valid ticket
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.2.5 - name of the ticket is no longer than 60 characters and at least 6 [pass with length of 60]
@@ -245,7 +245,7 @@ class FrontEndR6_2(BaseCase):
         self.type("#buy-ticket-name", "SixtycharsSixtycharsSixtycharsSixtycharsSixtycharsSixtychars")         ## Enter valid ticket
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
 
@@ -266,7 +266,7 @@ class FrontEndR6_3(BaseCase):
         self.type("#buy-ticket-name", "TestTicket")     ## Enter valid ticket name
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.3.2 - quantity of the tickets has to be more than 0, and less than or equal to 100 [pass minimum]
@@ -282,7 +282,7 @@ class FrontEndR6_3(BaseCase):
         self.type("#buy-ticket-name", "TestTicket")     ## Enter valid ticket name
         self.type("#buy-quantity", "1")                 ## Enter valid quantity on the boundary
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.3.3 - quantity of the tickets has to be more than 0, and less than or equal to 100 [fail minimum]
@@ -314,7 +314,7 @@ class FrontEndR6_3(BaseCase):
         self.type("#buy-ticket-name", "TestTicket")     ## Enter valid ticket name
         self.type("#buy-quantity", "100")               ## Enter valid quantity on upper bound
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.3.5 - quantity of the tickets has to be more than 0, and less than or equal to 100 [fail maximum]
@@ -385,7 +385,7 @@ class FrontEndR6_4_5_6(BaseCase):
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
         ## Mock call will return successful
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.4.2 - ticket name exists in the database and the quantity is more than the quantity requested to buy [fail not enough money]
@@ -436,7 +436,7 @@ class FrontEndR6_4_5_6(BaseCase):
         self.type("#buy-quantity", "10")                ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
         ## Mock call will return successful
-        self.assert_text("Sucessfully bought the ticket(s)", '#buy_message')    ## Check the success message
+        self.assert_text("Successfully bought the ticket(s).", '#buy_message')    ## Check the success message
         self.open(base_url + '/logout')                 ## invalidate any current sessions
 
     #Test Case R6.5.2 - user has more balance than the ticket price * quantity + service fee (35%) + tax (5%) [fail]
@@ -469,6 +469,6 @@ class FrontEndR6_4_5_6(BaseCase):
         self.type("#buy-ticket-name", "TestTicke&t ")   ## Enter valid ticket name
         self.type("#buy-quantity", "1000")              ## Enter valid quantity
         self.click('input[type="submit"]')              ## Submit the form
-        self.assert_text("Failed to buy ticket.", '#buy_message')    ## Check the error message
+        self.assert_text("Failed to buy the ticket(s): ", '#buy_message')    ## Check the error message
         self.assert_element('#welcome-header')          ## Check that we are now on the home page
         self.open(base_url + '/logout')                 ## invalidate any current sessions
