@@ -1,8 +1,8 @@
-# SeetGeek Assignment 5 - Failure Report
+# SeetGeek Assignment 5 - Design Report  
 
 ###Section 1: Aubrey McLeod
-
-#####<u>Integration Tests</u>
+  
+#####<u>Integration Tests</u>  
 There are two tests, one where a user signs in and lists a ticket for sale(test 1), and another test where a user logs on and buys a ticket (test 2).
 The tests are depicted below.
 ```
@@ -35,7 +35,7 @@ The tests are depicted below.
 ```
 
 ```
-#Test 3 Protocol:
+#Test 2 Protocol:
 - the user opens up the registration route
 - the user enters their email (test1@test.sb.com) into the email field.
 - the user enters their name (test1) into the name field
@@ -60,7 +60,7 @@ The tests are depicted below.
 ```
 
 
-
+  
 #####<u>Whitebox Tests</u>
 Here we will test `validation.validate_name()`:
 ```

@@ -1,7 +1,9 @@
 # SeetGeek Assignment 5 - Failure Report
-
+  
 ###Section 1: Aubrey McLeod
+  
 #####Front End Test Implementation Failures
+  
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
 |R4|4.1.1| The name of the ticket has to be alphanumeric-only, and space allowed only if it is not the first or the last character. (pass) | Predicted Success Message differed from actual code.| Reformatted test message, to match code. |
@@ -23,5 +25,7 @@
 | | 4.8.2 | The name of the ticket must be at least 6 characters long (fail due to blank field) | Originally called for blank field, which is not possible through the front end, currently | Refactored test 4.8.3 into this slot |
 | | 4.8.3 | The name of the ticket must be at least 6 characters long (fail due to being too short) | Redundant due to refactoring into test 4.8.2 | removed original test case in this position. |
 | | 4.9 | The ticket(s) must not be expired |  Error message did not match code| revised test message.|
+  
+  
 #####Backend Test Implementation Failures
 No failures were encountered when implementing whitebox tests for: `validate_name()`, `validate_date()`, `validate_quantity()`, or `validate_price()`.
