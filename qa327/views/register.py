@@ -49,7 +49,7 @@ def register_post():
 
     # Check if passwords match
     if password != password2:
-        error_message = "The passwords format is incorrect"
+        error_message = "Passwords format is incorrect"
     # Check for valid email
     elif not valid.validate_email_address(email):
         error_message = "Email format is incorrect"
