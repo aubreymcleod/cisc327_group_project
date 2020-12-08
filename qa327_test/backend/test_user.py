@@ -89,3 +89,11 @@ def test_user_register_user_invalid_commit(self, *_):
     test_balance  = 50000                                               ## Test with valid balance
     assert users.register_user(test_email, test_name, test_password,
                          test_password2, test_balance) == 'error'       ## Run register and make sure it returns an error message
+    
+## Test the reduce_user success
+@patch('qa327.library.users.get_user', return_value=test_user)
+@patch('qa327.models.db.session.commit', return_value=None)
+def test_user_reduce_balance_success(self, *_):
+    test_email = "testfrontend@test.com"                            ## Set tetst email
+    test_cost = 10                                                  ## Set test cost
+    assert users.reduce_balance(test_email, test_cost) == None      ## Run the reduce balance to make sure it works
