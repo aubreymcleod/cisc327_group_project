@@ -23,14 +23,16 @@ def update_post():
     price = request.form.get('price')
     expiration = request.form.get('expiration')
     errors=[]
-    update_msg='failed to update ticket'
+    update_msg='Failed to update ticket'
     
     if not valid.validate_name(ticket_name):
-        errors.append("The name of the ticket mys be more than 60 characters")
+        errors.append("Ticket not found. The name of the ticket cannot be: blank, contain more than 60 characters, contain special characters, contain only numbers, or any white space")
     if not valid.validate_quantity(quantity) and int(quantity)!=0:
         errors.append("You may only sell between 0 and a hundred tickets inclusive")
     if not valid.validate_price(price):
-        errors.append("Prices must be between $10 and $100 (whole numbers only)")
+        errors.append("Prices must be between $10 and $100 (whole numbers only) and cannot be blank")
+    if not valid.validate_date(expiration):
+    	errors.append("Date must be in the format YYYYMMDD, no separators and cannot be blank")
     if len(errors) == 0:
         ticket = tic.update_ticket(ticket_name, quantity, price, expiration, email)
         if ticket is None:
