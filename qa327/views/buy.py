@@ -28,9 +28,11 @@ def buy_post():
     
     # Check that the ticket name meets requirements
     if not valid.validate_name(ticket_name):
-        errors.append("The name of the ticket must be no more than 60 characters")
+        errors.append("The name of the ticket must be no more than 60 characters using alphanumeric characters with no spaces at the begining and end")
     # Check that the quantity is valid
-    if not valid.validate_quantity(quantity) and int (quantity)!=0:
+    if not quantity.isdigit():
+         errors.append("Quantity must be entered using 0-9")   
+    elif not valid.validate_quantity(quantity) or int (quantity)==0:
          errors.append("You may only buy between 0 and 100 tickets inclusive")   
 
     # If no errors in input

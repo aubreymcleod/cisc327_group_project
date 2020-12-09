@@ -29,3 +29,43 @@
   
 #####Backend Test Implementation Failures
 No failures were encountered when implementing whitebox tests for: `validate_name()`, `validate_date()`, `validate_quantity()`, or `validate_price()`.
+
+
+
+###Section 2: Teaghan Laitar
+
+I implemented the test set from A1 for features R6. I also added to the test_user.py backend test cases.
+
+For the test implementation of R6 the most noticeable failures were in design of the test cases. These have been grouped together for ease in the failure table bellow.
+A lot of the test cases had elements that do not exist so they had to be changed. Also the entry data in each test case did not reflect what was being tested.
+For more information on the individual test cases see R6.md in the test cases folder of our project.
+
+For the backend I added test cases for the reduce_balance function since it was not created when the backend tests for this file were originally made.
+For more information on the individualtest cases for the user class see the backend tests in the test cases folder of out project.
+
+#####Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R6| Test Data | Test data the will be used for the test cases | Contained unneccessary and incorrect values | Made adjustments so the test data is used properly |
+||All| Test the ability to buy tickets with a variety of good and bad user input. | The plain language test cases all involved inserting data into slots on the form that do not exist. | Changed test case so data is only entered into existing spot on the from. |
+||All| Test the ability to buy tickets with a variety of good and bad user input. | The plain language test cases all called to be backend to buy tickets. | Added a pactch to the test cases. |
+||All| Test the ability to buy tickets with a variety of good and bad user input. | The plain language test cases did not change the input to match the test case described. | Changed the mocked user input in the test cases. |
+||All| Test the ability to buy tickets with a variety of good and bad user input. | The plain language test cases error message checks no longer match the output from the code. | Made the checks for the correct error message. |
+||2.3| Does not exist | Since the creation of the test cases we have added the requirement that ticket names be 6 or more characters, so this is not checked for | Added test case. |
+||2.4| Does not exist | There is no check for a passing name length of 6, the boundary case | Added a test fro a name length of 6 |
+||2.5| Does not exist | There is no check for a passing name length of 60, the boundary case | Added a test fro a name length of 60 |
+||3.5| Test alphabetical entries into the quantity field. | Test fails, no error message is shown. | Added a condition to the buy.py to check that the entries in quantity are numbers. |
+||3.1, 2, 4| Test valid quanitiy entries. | After the last fix all entries failed. | Had to change an == to a != |
+||4.3| Does not exist | No test for if the ticket is not found | Added test for if the ticket is not found |
+||6.1| Test redirection and error message if an error occurs | The redirection was not included in the test case | Added redirection confirmation to the test case |
+||6.1| Test redirection and error message if an error occurs | The error message check did not match the displayed error message after changes were made in the most recent merge | Changed the required error message |
+||1.1| Tests successful purchase of tickets | The error message check did not match the displayed error message after changes to spelling were made in the most recent push | Changed the checked error message to match |
+||2.1, 2.4, 2.5| Tests successful purchase of tickets | The error message check did not match the displayed error message after changes to spelling were made in the most recent push | Changed the checked error message to match |
+||3.1-2| Tests successful purchase of tickets | The error message check did not match the displayed error message after changes to spelling were made in the most recent push | Changed the checked error message to match |
+||4.1| Tests successful purchase of tickets | The error message check did not match the displayed error message after changes to spelling were made in the most recent push | Changed the checked error message to match |
+||5.1| Tests successful purchase of tickets | The error message check did not match the displayed error message after changes to spelling were made in the most recent push | Changed the checked error message to match |
+
+#####Back End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|USER|reduce_balance| Test the ability to reduce the user balance | Test came back as a failure because the user did not exist | Added a patch to mock the get_user |
