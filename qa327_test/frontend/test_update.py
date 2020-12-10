@@ -1,7 +1,6 @@
 import pytest
 from seleniumbase import BaseCase
 from flask_sqlalchemy import SQLAlchemy
-
 from qa327_test.conftest import base_url
 from unittest.mock import patch
 from qa327.models import User, Ticket
@@ -249,7 +248,7 @@ class FrontEndUpdateTest(BaseCase):
         # enter test_ticket's price into element '#update-price'
         self.type("#update-price", str(test_ticket.price))
         # enter '19990802' into element '#update-expiration'
-        self.type("#update-expiration", '19990802'))
+        self.type("#update-expiration", '19990802')
         # click '#update-submit'
         self.click('#update-submit')
         # validate that the '#update_message' element shows 'successfully listed the ticket(s)'
@@ -280,7 +279,7 @@ class FrontEndUpdateTest(BaseCase):
         # enter test_ticket's price into element '#update-price'
         self.type("#update-price", str(test_ticket.price))
         # enter '199908021' into element '#update-expiration'
-        self.type("#update-expiration", '199908021'))
+        self.type("#update-expiration", '199908021')
         # click '#update-submit'
         self.click('#update-submit')
         # validate that the '#update_message' element shows failure message
@@ -311,7 +310,7 @@ class FrontEndUpdateTest(BaseCase):
         # enter test_ticket's price into element '#update-price'
         self.type("#update-price", str(test_ticket.price))
         # enter 'abc' into element '#update-expiration'
-        self.type("#update-expiration", 'abc'))
+        self.type("#update-expiration", 'abc')
         # click '#update-submit'
         self.click('#update-submit')
         # validate that the '#update_message' element shows failure message
@@ -342,7 +341,7 @@ class FrontEndUpdateTest(BaseCase):
         # enter test_ticket's price into element '#update-price'
         self.type("#update-price", str(test_ticket.price))
         # enter '' into element '#update-expiration'
-        self.type("#update-expiration", ''))
+        self.type("#update-expiration", '')
         # click '#update-submit'
         self.click('#update-submit')
         # validate that the '#update_message' element shows failure message
@@ -373,7 +372,7 @@ class FrontEndUpdateTest(BaseCase):
         # enter test_ticket's price into element '#update-price'
         self.type("#update-price", str(test_ticket.price))
         # enter '1999.08.02' into element '#update-expiration'
-        self.type("#update-expiration", '1999.08.02'))
+        self.type("#update-expiration", '1999.08.02')
         # click '#update-submit'
         self.click('#update-submit')
         # validate that the '#update_message' element shows failure message
@@ -535,18 +534,3 @@ class FrontEndUpdateTest(BaseCase):
         self.assert_text('Failed to update ticket', '#update_message')
         # open '/logout' (clean up)
         self.open(base_url + '/logout')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
