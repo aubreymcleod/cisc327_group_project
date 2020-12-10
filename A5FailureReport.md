@@ -93,5 +93,5 @@ I implemented the test set from A1 for features R5.4 to R5.7 as well as the back
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
 |TICKET|2.1| A ticket's expiry date should be verified to be not expired. If ticket is not expired the function should return the ticket, if not return None | Test failed because prune_expired_tickets needs a list of tickets to prune. | Added a patch to mock prune_expired_tickets function and mocked a valid_test_tickets list. |
-||3.2| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .add) | Test failed |  |
-||3.3| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .commit) | Test failed |  |
+||3.2| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .add) | Test failed due to exception not being caught in tickets.py | Added try-catch block in tickets. |
+||3.3| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .commit) | Test failed due to exception not being caught in tickets.py | Added try-catch block in tickets. |

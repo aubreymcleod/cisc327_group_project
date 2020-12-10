@@ -73,7 +73,7 @@ def test_ticket_add_error(self, *_):
     test_ticket_quantity = 10
     test_ticket_price = 10
     test_ticket_date = "20201231"
-    assert tickets.add_ticket(test_ticket_name, test_ticket_quantity, test_ticket_price, test_ticket_date, test_ticket_owner) == 'mocked error'
+    assert tickets.add_ticket(test_ticket_name, test_ticket_quantity, test_ticket_price, test_ticket_date, test_ticket_owner) == 'error'
 
 #TICKET.3.3 The ticket should be added to the database when all input requriements check out, if an error occurs it should be reported (error from .commit)
 @patch('qa327.models.db.session.add', return_value=-1)
@@ -84,5 +84,5 @@ def test_ticket_commit_error(self, *_):
     test_ticket_quantity = 10
     test_ticket_price = 10
     test_ticket_date = "20201231"
-    assert tickets.add_ticket(test_ticket_name, test_ticket_quantity, test_ticket_price, test_ticket_date, test_ticket_owner) == 'mocked error'
+    assert tickets.add_ticket(test_ticket_name, test_ticket_quantity, test_ticket_price, test_ticket_date, test_ticket_owner) == 'error'
 
