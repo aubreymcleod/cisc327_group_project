@@ -77,5 +77,4 @@ For more information on the individualtest cases for the user class see the back
 |---------------------|-----------|-----------------------|-------|----------|
 |R5|1.2|name of the ticket has to be alphanumeric-only, and space allowed on if it is not the first or the last character|error message not visible after six seconds|change the error message to match error message in update.py|
 ||2.2|name of the ticket is no longer than 60 characters [fail]|type syntax error|enter name in string format|
-||3.1|quantity of the tickets has to be more than 0, and less than or equal to 100 [pass]
-|message not visible after six seconds|change the id's to match the index file|
+||3.1|quantity of the tickets has to be more than 0, and less than or equal to 100 [pass]|message not visible after six seconds|change the id's to match the index file|
