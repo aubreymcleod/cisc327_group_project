@@ -1,4 +1,3 @@
-
 import pytest
 from seleniumbase import BaseCase
 from flask_sqlalchemy import SQLAlchemy
