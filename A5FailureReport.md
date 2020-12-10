@@ -69,3 +69,29 @@ For more information on the individualtest cases for the user class see the back
 |Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
 |---------------------|-----------|-----------------------|-------|----------|
 |USER|reduce_balance| Test the ability to reduce the user balance | Test came back as a failure because the user did not exist | Added a patch to mock the get_user |
+
+
+(Section 3 for Nicole since she implemented tests R5.1 to R5.3)
+
+#####Section 4: Melissa Zhu
+
+I implemented the test set from A1 for features R5.4 to R5.7 as well as the backend test cases for tickets.
+
+#####Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R5|5.4.6| Price has to be in the range 0-100 (fail: price input is blank)| Original error message did not specify this failure. | Changed error message to include this failure. |
+||5.5.2| Date must be given in the format YYYYMMDD (fail)| Original function did not validate the expiration date input. | Changed update method to include expiration date validation. |
+||5.5.3| Date must be given in the format YYYYMMDD (fail: input includes non-numeric characters)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.5.4| Date must be given in the format YYYYMMDD (fail: input is blank)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.5.5| Date must be given in the format YYYYMMDD (fail: input has separators)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.2| Ticket of the given name must exist (fail)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.3| Ticket of the given name must exist (fail: only numeric characters))| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.4| Ticket of the given name must exist (fail: input is blank))| Original error message did not include this failure. | Changed error message to include this failure. |
+
+#####Back End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|TICKET|2.1| A ticket's expiry date should be verified to be not expired. If ticket is not expired the function should return the ticket, if not return None | Test failed because prune_expired_tickets needs a list of tickets to prune. | Added a patch to mock prune_expired_tickets function and mocked a valid_test_tickets list. |
+||3.2| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .add) | Test failed |  |
+||3.3| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .commit) | Test failed |  |
