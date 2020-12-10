@@ -13,6 +13,7 @@ These have been brocken down in to test cases as follows
 |users.3|The user should be added to the database when all registration credientals check out, if an error occurs and error should be reported|No unexpected errors|
 | | |Unexpected error while running add to the database|
 | | |Unexpected error while running commit to the database|
+|users.4|The balance of the user should reduce successfully when reduce_balance is called|Test a successfull reduce balance|
 
 
 The calls to the database will be patched to return either a test case of user data that would be returned from the data base if the user exists, or None if the user dones not exist.
@@ -117,3 +118,13 @@ The calls to save to the data base will also be patched so the test cases do not
 	- Set test_balance to an interger value
 	- Call register_user with all test information
 	- Validate that and error is returned from the function call
+	
+## Test case users.4.1 - The users balance should be reduced when user balance is called
+	Mocking:
+	- Mock `db.session.commit` to return None
+	- Mock `get_user` to return a `test_user` instance
+	
+	Actions:
+	- Set test_email to a valid email
+	- Set test_cost to a valid cost
+	- check that when reduce_cost is called it returns None

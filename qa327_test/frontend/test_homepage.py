@@ -5,9 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 from qa327_test.conftest import base_url
 from unittest.mock import patch
-from qa327.models import db, User, Ticket
-from werkzeug.security import generate_password_hash, check_password_hash
-import requests
+from qa327.models import User, Ticket
+from werkzeug.security import generate_password_hash
 
 """
 This file defines all unit tests for the frontend homepage.
@@ -35,7 +34,7 @@ test_user = User(
 # Mock some sample tickets
 test_tickets = [
 	Ticket(ticket_name='test ticket yo', price=10, quantity=10, expiration='20201231', owners_email='test_frontend@test.com'),
-	Ticket(ticket_name='test ticket yo', price=10, quantity=10, expiration='20201231', owners_email='test_frontend@test.com'),
+	Ticket(ticket_name='ticket two', price=10, quantity=10, expiration='20201231', owners_email='test_frontend@test.com'),
 	Ticket(ticket_name='old ticket yo', price=10, quantity=10, expiration='18971231', owners_email='test_frontend@test.com')
 ]
 
@@ -169,7 +168,7 @@ class FrontEndHomePageTest(BaseCase):
 		# validate that the '#ticket1_name' element shows 'test_ticket_yo'.
 		self.assert_text('test ticket yo','#ticket1_name')
 		# validate that the '#ticket2_name' element shows 'test_ticket_yo'.
-		self.assert_text('test ticket yo','#ticket2_name')
+		self.assert_text('ticket two','#ticket2_name')
 		# validate that the '#ticket1_price' element shows '10'.
 		self.assert_text('10','#ticket1_price')
 		# validate that the '#ticket2_price' element shows '10'.
@@ -339,10 +338,108 @@ class FrontEndHomePageTest(BaseCase):
 		self.type("#sell-price","-10")
 		self.type("#sell-expiration", "19700101")
 		self.click('#sell-submit')
-		self.assert_text('failed to list the ticket(s)', '#sell_message')
+		self.assert_text('Failed to list the ticket(s)', '#sell_message')
+		### clean up
+		self.open(base_url + '/logout')
+
+
+	### Test case R3.10.1 - The ticket-buying form can be posted to /buy. [pass]
+	@patch('qa327.library.users.get_user', return_value=test_user)
+	@patch('qa327.library.tickets.buy_ticket', return_value=None)
+	def test_correct_buy_form(self, *_):
+		# open /logout to invalidate any logged-in sessions that may exist
+		self.open(base_url + '/logout')
+		# open /login
+		self.open(base_url + '/login')
+		# enter the test_user's email into #email
+		self.type("#email", "test_frontend@test.com")
+		# enter test_user’s password into element #password
+		self.type("#password", "Test_frontend")
+		# click element input[type=“submit”]
+		self.click('input[type="submit"]')
+		# open "/" again
+		self.open(base_url + '/')
+		self.type("#buy-ticket-name", "ticket two")
+		self.type("#buy-quantity", "10")
+		self.click("#buy-submit")
+		self.assert_text("Successfully bought the ticket(s)", '#buy_message')
+		### clean up
+		self.open(base_url + '/logout')
+
+
+	### Test case R3.10.2 - The ticket-buying form can be posted to /buy. [fail]
+	@patch('qa327.library.users.get_user', return_value=test_user)
+	@patch('qa327.library.tickets.buy_ticket', return_value="INVALID TICKET")
+	def test_incorrect_buy_form(self, *_):
+		# open /logout to invalidate any logged-in sessions that may exist
+		self.open(base_url + '/logout')
+		# open /login
+		self.open(base_url + '/login')
+		# enter the test_user's email into #email
+		self.type("#email", "test_frontend@test.com")
+		# enter test_user’s password into element #password
+		self.type("#password", "Test_frontend")
+		# click element input[type=“submit”]
+		self.click('input[type="submit"]')
+		# open "/" again
+		self.open(base_url + '/')
+		self.type("#buy-ticket-name", "!@#$%^&*()-=")
+		self.type("#buy-quantity", "-1")
+		self.click("#buy-submit")
+		self.assert_text("Failed to buy the ticket(s)", '#buy_message')
+		### clean up
+		self.open(base_url + '/logout')
+	
+	### Test case R3.11.1 - The ticket-update form can be posted to /update. [pass]
+	@patch('qa327.library.users.get_user', return_value=test_user)
+	@patch('qa327.library.tickets.update_ticket', return_value=None)
+	def test_update_form(self, *_):
+		# open /logout to invalidate any logged-in sessions that may exist
+		self.open(base_url + '/logout')
+		# open /login
+		self.open(base_url + '/login')
+		# enter the test_user's email into #email
+		self.type("#email", "test_frontend@test.com")
+		# enter test_user’s password into element #password
+		self.type("#password", "Test_frontend")
+		# click element input[type=“submit”]
+		self.click('input[type="submit"]')
+		# open "/" again
+		self.open(base_url + '/')
+		self.type("#update-ticket-name", "ticket two")
+		self.type("#update-quantity", "11")
+		self.type("#update-price", "11")
+		self.type("#update-expiration", "20210101")
+		self.click("#update-submit")
+		self.assert_text("Successfully updated the ticket(s)", '#update_message')
 		### clean up
 		self.open(base_url + '/logout')
 		
+	### Test case R3.11.2 - The ticket-update form can be posted to /update. [fail]
+	@patch('qa327.library.users.get_user', return_value=test_user)
+	@patch('qa327.library.tickets.update_ticket', return_value="INVALID TICKET")
+	def test_incorrect_update_form(self, *_):
+		# open /logout to invalidate any logged-in sessions that may exist
+		self.open(base_url + '/logout')
+		# open /login
+		self.open(base_url + '/login')
+		# enter the test_user's email into #email
+		self.type("#email", "test_frontend@test.com")
+		# enter test_user’s password into element #password
+		self.type("#password", "Test_frontend")
+		# click element input[type=“submit”]
+		self.click('input[type="submit"]')
+		# open "/" again
+		self.open(base_url + '/')
+		self.type("#update-ticket-name", "ticket two")
+		self.type("#update-quantity", "-1")
+		self.type("#update-price", "-1")
+		self.type("#update-expiration", "19700101")
+		self.click("#update-submit")
+		self.assert_text("Failed to update the ticket(s)", '#update_message')
+		### clean up
+		self.open(base_url + '/logout')
+	
 	### Test case R3.12 - The Ticket Buying Form Exists
 	@patch('qa327.library.users.get_user', return_value=test_user)
 	def test_buy_form_content(self, *_):
@@ -361,7 +458,7 @@ class FrontEndHomePageTest(BaseCase):
 		self.assert_element("#buy-ticket-name")
 		self.assert_element("#buy-quantity")
 		self.assert_element("#buy-submit")
-		
+
 	### Test case R3.13 - The Ticket Updating Form Exists
 	@patch('qa327.library.users.get_user', return_value=test_user)
 	def test_update_form_content(self, *_):
@@ -382,104 +479,3 @@ class FrontEndHomePageTest(BaseCase):
 		self.assert_element("#update-price")
 		self.assert_element("#update-expiration")
 		self.assert_element("#update-submit")
-	
-	
-'''
-	### Test case R3.10.1 - The ticket-buying form can be posted to /buy. [pass]
-	@patch('qa327.library.users.get_user', return_value=test_user)
-	@patch('qa327.library.tickets.buy_ticket', return_value=test_ticket)
-	def test_buy_form(self, *_):
-		# open /logout to invalidate any logged-in sessions that may exist
-		self.open(base_url + '/logout')
-		# open /login
-		self.open(base_url + '/login')
-		# enter the test_user's email into #email
-		self.type("#email", "test_frontend@test.com")
-		# enter test_user’s password into element #password
-		self.type("#password", "Test_frontend")
-		# click element input[type=“submit”]
-		self.click('input[type="submit"]')
-		# open "/" again
-		self.open(base_url + '/')
-		self.type("#buy_name", "ticket_two")
-		self.type("#buy_quantity", "10")
-		self.click("#buy_submit")
-		self.assert_text("successfully bought ticket(s)", '#message')
-		### clean up
-		self.open(base_url + '/logout')
-		
-	### Test case R3.10.2 - The ticket-buying form can be posted to /buy. [fail]
-	@patch('qa327.library.users.get_user', return_value=test_user)
-	@patch('qa327.library.tickets.buy_ticket', return_value=test_ticket)
-	def test_incorrect_buy_form(self, *_):
-		# open /logout to invalidate any logged-in sessions that may exist
-		self.open(base_url + '/logout')
-		# open /login
-		self.open(base_url + '/login')
-		# enter the test_user's email into #email
-		self.type("#email", "test_frontend@test.com")
-		# enter test_user’s password into element #password
-		self.type("#password", "Test_frontend")
-		# click element input[type=“submit”]
-		self.click('input[type="submit"]')
-		# open "/" again
-		self.open(base_url + '/')
-		self.type("#buy_name", "!@#$%^&*()-=")
-		self.type("#buy_quantity", "-1")
-		self.click("#buy_submit")
-		self.assert_text("failed to buy ticket(s)", '#message')
-		### clean up
-		self.open(base_url + '/logout')
-
-	### Test case R3.11.1 - The ticket-update form can be posted to /update. [pass]
-	@patch('qa327.library.users.get_user', return_value=test_user)
-	@patch('qa327.library.tickets.update_ticket', return_value=test_ticket)
-	def test_update_form(self, *_):
-		  # open /logout to invalidate any logged-in sessions that may exist
-		self.open(base_url + '/logout')
-		# open /login
-		self.open(base_url + '/login')
-		# enter the test_user's email into #email
-		self.type("#email", "test_frontend@test.com")
-		# enter test_user’s password into element #password
-		self.type("#password", "Test_frontend")
-		# click element input[type=“submit”]
-		self.click('input[type="submit"]')
-		# open "/" again
-		self.open(base_url + '/')
-		self.type("#update_name", "ticket_two")
-		self.type("#update_quantity", "11")
-		self.type("#update_price", "11")
-		self.type("#update_expiration", "20210101")
-		self.click("#update_submit")
-		self.assert_text("successfully updated ticket listing", '#update_message')
-		### clean up
-		self.open(base_url + '/logout')
-		
-	### Test case R3.11.2 - The ticket-update form can be posted to /update. [fail]
-	@patch('qa327.library.users.get_user', return_value=test_user)
-	@patch('qa327.library.tickets.update_ticket', return_value=test_ticket)
-	def test_incorrect_update_form(self, *_):
-		# open /logout to invalidate any logged-in sessions that may exist
-		self.open(base_url + '/logout')
-		# open /login
-		self.open(base_url + '/login')
-		# enter the test_user's email into #email
-		self.type("#email", "test_frontend@test.com")
-		# enter test_user’s password into element #password
-		self.type("#password", "Test_frontend")
-		# click element input[type=“submit”]
-		self.click('input[type="submit"]')
-		# open "/" again
-		self.open(base_url + '/')
-		self.type("#update_name", "ticket_two")
-		self.type("#update_quantity", "-1")
-		self.type("#update_price", "-1")
-		self.type("#update_expiration", "19700101")
-		self.click("#update_submit")
-		self.assert_text("failed to update ticket", '#update_message')
-		### clean up
-		self.open(base_url + '/logout')
-
-'''
-

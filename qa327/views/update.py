@@ -23,12 +23,15 @@ def update_post():
     price = request.form.get('price')
     expiration = request.form.get('expiration')
     errors=[]
-    update_msg='Failed to update ticket'
+    update_msg='Failed to update the ticket(s): '
     
     if not valid.validate_name(ticket_name):
-        errors.append("Ticket not found. The name of the ticket cannot be: blank, contain more than 60 characters, contain special characters, contain only numbers, or any white space")
-    if not valid.validate_quantity(quantity) and int(quantity)!=0:
-        errors.append("You may only sell between 0 and a hundred tickets inclusive")
+        errors.append("The name of the ticket mys be more than 60 characters")
+    #if not valid.validate_quantity(quantity) and int(quantity)!=0:
+        #errors.append("You may only sell between 0 and a hundred tickets inclusive")
+    if not valid.validate_quantity(quantity):
+        errors.append("You may only sell between one and a hundred tickets inclusive")
+        
     if not valid.validate_price(price):
         errors.append("Prices must be between $10 and $100 (whole numbers only) and cannot be blank")
     if not valid.validate_date(expiration):
@@ -36,16 +39,18 @@ def update_post():
     if len(errors) == 0:
         ticket = tic.update_ticket(ticket_name, quantity, price, expiration, email)
         if ticket is None:
+            """
             if int(quantity)==0:
-                 update_msg='Successfully removed the ticket(s)'
-                
+                update_msg='Successfully removed the ticket(s)'
             else:
-                update_msg='Successfully listed the ticket(s)'
+                update_msg='Successfully updated the ticket(s)'
+            """
+            update_msg = 'Successfully updated the ticket(s)'
         else:
             errors.append(ticket)
     if len(errors) > 0:
-        update_msg += ", ".join(errors)+"." #adding all of the errors to the updat message
-        
+       update_msg += ", ".join(errors)+"." #adding all of the errors to the updat message
+
     resp=make_response(redirect('/', code=303))
     resp.set_cookie('update_msg', update_msg)
     return resp

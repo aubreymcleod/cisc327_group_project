@@ -199,3 +199,115 @@ def test_validation_password_invalid_chars_():
 def test_validation_password_invalid_chars_():
     test_password = '\0\0\0'
     assert valid.validate_password(test_password) is False
+
+
+# TICKET VALIDATION #
+
+# VALIDATE NAME - Test Cases (based on the 2 branches)
+# Match Regex   6=<len<=60  Outcome     Branch  TestValues              CASE
+# 0             0           FALSE       1       "@"                     1
+# 0             1           FALSE       1       "@@@@@@"                2
+# 1             0           FALSE       1       "a"                     3
+# 1             1           TRUE        2       "aaaaaa"                4
+
+# NAME.1
+def test_validation_name_nomatch_tooshort():
+    test_name = "@"
+    assert valid.validate_name(test_name) is False
+
+# NAME.2
+def test_validation_name_nomatch():
+    test_name = "@@@@@@"
+    assert valid.validate_name(test_name) is False
+
+# NAME.3
+def test_validation_name_tooshort():
+    test_name = "a"
+    assert valid.validate_name(test_name) is False
+
+# NAME.4
+def test_validation_name_valid():
+    test_name = "aaaaaa"
+    assert valid.validate_name(test_name) is True
+
+
+# VALIDATE DATE - Test Cases (based on the 2 branches)
+# Match Regex   Date>Today  Outcome     Branch  TestValues              CASE
+# 0             0           FALSE       1       "00000000"              1
+# 0             1           FALSE       1       "20213112"              2
+# 1             0           FALSE       1       "19700101"              3
+# 1             1           TRUE        2       "20201231"              4
+
+# DATE.1
+def test_validation_date_nomatch_expired():
+    test_date = "00000000"
+    assert valid.validate_date(test_date) is False
+
+# DATE.2
+def test_validation_date_nomatch():
+    test_date = "20213112"
+    assert valid.validate_date(test_date) is False
+
+# DATE.3
+def test_validation_date_expired():
+    test_date = "19700101"
+    assert valid.validate_date(test_date) is False
+
+# DATE.4
+def test_validation_date_valid():
+    test_date = "20201231"
+    assert valid.validate_date(test_date) is True
+
+# VALIDATE QTY - Test Cases (based on the 2 branches)
+# Valid Int     0<qty<=100  Outcome     Branch  TestValues              CASE
+# 0             0           FALSE       2       "zero"                1
+# 0             1           FALSE       2       "1E"                    2
+# 1             0           FALSE       3       "0"                     3
+# 1             1           TRUE        1       "1"                     4
+
+# QTY.1
+def test_validation_qty_badint_outofrange():
+    test_qty = "zero"
+    assert valid.validate_quantity(test_qty) is False
+
+# QTY.2
+def test_validation_qty_badint_inrange():
+    test_qty = "1E"
+    assert valid.validate_quantity(test_qty) is False
+
+# QTY.3
+def test_validation_qty_outofrange():
+    test_qty = "0"
+    assert valid.validate_quantity(test_qty) is False
+
+# QTY.4
+def test_validation_qty_valid():
+    test_qty = "1"
+    assert valid.validate_quantity(test_qty) is True
+
+# VALIDATE PRICE - Test Cases (based on the 2 branches)
+# Valid Int     0<prc<=100  Outcome     Branch  TestValues              CASE
+# 0             0           FALSE       2       "MILLION"                1
+# 0             1           FALSE       2       "1E"                    2
+# 1             0           FALSE       3       "9"                     3
+# 1             1           TRUE        1       "10"                    4
+
+# QTY.1
+def test_validation_price_badint_outofrange():
+    test_price = "MILLION"
+    assert valid.validate_price(test_price) is False
+
+# QTY.2
+def test_validation_price_badint_inrange():
+    test_price = "1E"
+    assert valid.validate_price(test_price) is False
+
+# QTY.3
+def test_validation_price_outofrange():
+    test_price = "9"
+    assert valid.validate_price(test_price) is False
+
+# QTY.4
+def test_validation_price_valid():
+    test_price = "10"
+    assert valid.validate_price(test_price) is True

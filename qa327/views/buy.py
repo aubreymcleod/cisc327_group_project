@@ -21,16 +21,18 @@ def buy_post():
     email=session['logged_in']                      # Set email from logged in session
     quantity = request.form.get('quantity')         # Set quanity from from
     errors=[]                                       # Create an empty arry to store errors
-    buy_msg = 'Failed to buy ticket. '              # Set buy_msg to a failed message
+    buy_msg = 'Failed to buy the ticket(s): '       # Set buy_msg to a failed message
 
     user = usr.get_user(email)
     balance = user.balance/100
     
     # Check that the ticket name meets requirements
     if not valid.validate_name(ticket_name):
-        errors.append("The name of the ticket must be no more than 60 characters")
+        errors.append("The name of the ticket must be no more than 60 characters using alphanumeric characters with no spaces at the begining and end")
     # Check that the quantity is valid
-    if not valid.validate_quantity(quantity) and int (quantity)!=0:
+    if not quantity.isdigit():
+         errors.append("Quantity must be entered using 0-9")   
+    elif not valid.validate_quantity(quantity) or int (quantity)==0:
          errors.append("You may only buy between 0 and 100 tickets inclusive")   
 
     # If no errors in input
@@ -41,7 +43,7 @@ def buy_post():
 
         # If successfully bought change buy msg to show that
         if ticket is None:
-            buy_msg = 'Sucessfully bought the ticket(s).'
+            buy_msg = 'Successfully bought the ticket(s).'
 
         # If failed add to errors
         else:
