@@ -26,7 +26,7 @@ def update_post():
     update_msg='Failed to update the ticket(s): '
     
     if not valid.validate_name(ticket_name):
-        errors.append("The name of the ticket mys be more than 60 characters")
+        errors.append("The name of the ticket must be more than 60 characters")
     #if not valid.validate_quantity(quantity) and int(quantity)!=0:
         #errors.append("You may only sell between 0 and a hundred tickets inclusive")
     if not valid.validate_quantity(quantity):

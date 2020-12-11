@@ -76,18 +76,33 @@ def validate_name(name):
 | 3 | True | False | 2 | False | "a" |
 | 4 | True | True | 1 | True | "aaaaaa" |
 
-
 Here we will test `validation.validate_date()`:
 ```
 def validate_date(expiration_date):
+  if re.match("^[0-9][0-9][0-9][0-9](0[1-9]|1[0-2])([0][1-9]|[1-2][0-9]|3[0-1])$",
+      expiration_date):         
+      return True               #branch - 1: outcome True
+  return False                  #branch - 2: outcome False
+```
+
+| Test case | Valid date | Branch | Outcome | Test Value |
+|-----------|------------|--------|---------|------------|
+| 1 | False | 2 | False | "00000000" |
+| 2 | True  | 1 | False | "20213112" |
+
+
+
+
+Here we will test `validation.validate_not_expired()`:
+```
+def validate_not_epired(expiration_date):
     todays_date = date.today().strftime("%Y/%m/%d")
-    if re.match("^[0-9][0-9][0-9][0-9](0[1-9]|1[0-2])([0][1-9]|[1-2][0-9]|3[0-1])$",
-                expiration_date) and expiration_date >= todays_date:
+    if validate_date(expiration_date) and expiration_date >= todays_date:
         return True                     # branch - 1: outcome True
     return False                        # branch - 2: outcome False
 ```
 
-| Test case | Match Regex | Date>Today | Branch | Outcome | Test Value |
+| Test case | Valid date | Date>Today | Branch | Outcome | Test Value |
 |-----------|-------------|------------|--------|---------|------------|
 | 1 | False | False | 2 | False | "00000000" |
 | 2 | False | True  | 2 | False | "20213112" |
