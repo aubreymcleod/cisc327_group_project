@@ -88,7 +88,7 @@ def validate_date(expiration_date):
 | Test case | Valid date | Branch | Outcome | Test Value |
 |-----------|------------|--------|---------|------------|
 | 1 | False | 2 | False | "00000000" |
-| 2 | True  | 1 | False | "20213112" |
+| 2 | True  | 1 | False | "20211231" |
 
 
 

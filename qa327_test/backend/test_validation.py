@@ -236,13 +236,13 @@ def test_validation_name_valid():
 # 1             FALSE       1       "19700101"              3
 
 # DATE.1
-def test_validation_date_nomatch_expired():
+def test_validation_date_nomatch():
     test_date = "00000000"
     assert valid.validate_date(test_date) is False
 
 # DATE.2
-def test_validation_date_nomatch():
-    test_date = "20213112"
+def test_validation_date_match():
+    test_date = "20211231"
     assert valid.validate_date(test_date) is True
 
 
