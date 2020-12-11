@@ -60,9 +60,15 @@ def validate_name(name):
 
 
 def validate_date(expiration_date):
-    todays_date = date.today().strftime("%Y/%m/%d")
     if re.match("^[0-9][0-9][0-9][0-9](0[1-9]|1[0-2])([0][1-9]|[1-2][0-9]|3[0-1])$",
-                expiration_date) and expiration_date >= todays_date:
+                expiration_date):
+        return True
+    return False
+
+
+def validate_not_expired(expiration_date):
+    todays_date = date.today().strftime("%Y/%m/%d")
+    if validate_date(expiration_date) and expiration_date >= todays_date:
         return True
     return False
 

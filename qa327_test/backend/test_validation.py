@@ -230,33 +230,49 @@ def test_validation_name_valid():
     test_name = "aaaaaa"
     assert valid.validate_name(test_name) is True
 
-
 # VALIDATE DATE - Test Cases (based on the 2 branches)
+# Match Regex   Outcome     Branch  TestValues              CASE
+# 0             FALSE       1       "00000000"              1
+# 1             FALSE       1       "19700101"              3
+
+# DATE.1
+def test_validation_date_nomatch():
+    test_date = "00000000"
+    assert valid.validate_date(test_date) is False
+
+# DATE.2
+def test_validation_date_match():
+    test_date = "20211231"
+    assert valid.validate_date(test_date) is True
+
+
+
+# VALIDATE EXPIRED - Test Cases (based on the 2 branches)
 # Match Regex   Date>Today  Outcome     Branch  TestValues              CASE
 # 0             0           FALSE       1       "00000000"              1
 # 0             1           FALSE       1       "20213112"              2
 # 1             0           FALSE       1       "19700101"              3
 # 1             1           TRUE        2       "20201231"              4
 
-# DATE.1
-def test_validation_date_nomatch_expired():
+# EXPIRED.1
+def test_validation_expiery_nomatch_expired():
     test_date = "00000000"
-    assert valid.validate_date(test_date) is False
+    assert valid.validate_not_expired(test_date) is False
 
-# DATE.2
-def test_validation_date_nomatch():
+# EXPIRED.2
+def test_validation_expiery_nomatch():
     test_date = "20213112"
-    assert valid.validate_date(test_date) is False
+    assert valid.validate_not_expired(test_date) is False
 
-# DATE.3
-def test_validation_date_expired():
+# EXPIRED.3
+def test_validation_expiery_expired():
     test_date = "19700101"
-    assert valid.validate_date(test_date) is False
+    assert valid.validate_not_expired(test_date) is False
 
-# DATE.4
-def test_validation_date_valid():
+# EXPIRED.4
+def test_validation_expiery_valid():
     test_date = "20201231"
-    assert valid.validate_date(test_date) is True
+    assert valid.validate_not_expired(test_date) is True
 
 # VALIDATE QTY - Test Cases (based on the 2 branches)
 # Valid Int     0<qty<=100  Outcome     Branch  TestValues              CASE

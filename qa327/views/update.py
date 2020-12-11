@@ -26,13 +26,16 @@ def update_post():
     update_msg='Failed to update the ticket(s): '
     
     if not valid.validate_name(ticket_name):
-        errors.append("The name of the ticket mys be more than 60 characters")
+        errors.append("The name of the ticket must be more than 60 characters")
     #if not valid.validate_quantity(quantity) and int(quantity)!=0:
         #errors.append("You may only sell between 0 and a hundred tickets inclusive")
     if not valid.validate_quantity(quantity):
         errors.append("You may only sell between one and a hundred tickets inclusive")
+        
     if not valid.validate_price(price):
-        errors.append("Prices must be between $10 and $100 (whole numbers only)")
+        errors.append("Prices must be between $10 and $100 (whole numbers only) and cannot be blank")
+    if not valid.validate_date(expiration):
+    	errors.append("Date must be in the format YYYYMMDD, no separators and cannot be blank")
     if len(errors) == 0:
         ticket = tic.update_ticket(ticket_name, quantity, price, expiration, email)
         if ticket is None:
