@@ -38,7 +38,7 @@ def sell_post():
 		errors.append("You may only sell between 1 and 100 tickets at a time with SeetGeek")
 	if not valid.validate_price(price):
 		errors.append("Prices must be between $10 and $100 (whole numbers only)")
-	if not valid.validate_date(expiration):
+	if not valid.validate_not_expired(expiration):
 		errors.append("Ticket cannot be expired and must conform to YYYYMMDD format")
 	if len(errors) == 0:
 		ticket = tic.add_ticket(ticket_name, quantity, price, expiration, email)

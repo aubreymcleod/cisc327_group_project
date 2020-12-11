@@ -71,7 +71,16 @@ For more information on the individualtest cases for the user class see the back
 |USER|reduce_balance| Test the ability to reduce the user balance | Test came back as a failure because the user did not exist | Added a patch to mock the get_user |
 
 
-(Section 3 for Nicole since she implemented tests R5.1 to R5.3)
+
+## Section 3 by Nicole Osayande - I implemented test cases for the first half of R5 and made a few changes to the error messages in update.py file
+
+##Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R5|1.2|name of the ticket has to be alphanumeric-only, and space allowed on if it is not the first or the last character|error message not visible after six seconds|change the error message to match error message in update.py|
+||2.2|name of the ticket is no longer than 60 characters [fail]|type syntax error|enter name in string format|
+||3.1|quantity of the tickets has to be more than 0, and less than or equal to 100 [pass]|message not visible after six seconds|change the id's to match the index file|
+
 
 #####Section 4: Melissa Zhu
 
