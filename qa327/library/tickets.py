@@ -55,10 +55,13 @@ def add_ticket(ticket_name, quantity, price, expiration, owners_email):
     #get any existing tickets of the same name posted by the user.
     existing = get_existing_tickets(ticket_name, owners_email)
     if existing == []: #if no existing tickets were found, add a new ticket to the database
-        ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
-        db.session.add(ticket)
-        db.session.commit()
-        return None
+        try: 
+        	ticket = Ticket(ticket_name = ticket_name, quantity = quantity, price = price, expiration = expiration, owners_email = owners_email)
+        	db.session.add(ticket)
+        	db.session.commit()
+        	return None
+        except:
+        	return 'error'
     else: #otherwise,
         if existing[0].ticket_name == ticket_name:  #return an error if the name was in use
             return "You have already posted a ticket with that name; if you are updating a batch, please use the update form"

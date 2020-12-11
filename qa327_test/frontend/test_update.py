@@ -1,7 +1,6 @@
 import pytest
 from seleniumbase import BaseCase
 from flask_sqlalchemy import SQLAlchemy
-
 from qa327_test.conftest import base_url
 from unittest.mock import patch
 from qa327.models import db, User, Ticket
@@ -590,7 +589,6 @@ class FrontEndUpdateTest(BaseCase):
 
 
 
-        
 
     #Test case R5.4.1 - price has to be in the range [10, 100] (pass minimum)
     @patch('qa327.library.users.get_user', return_value=test_user)
@@ -781,6 +779,7 @@ class FrontEndUpdateTest(BaseCase):
         self.open(base_url + '/logout')
     """
     
+
     #Test case R5.5.1 - date must be given in the format YYYYMMDD [pass]
     @patch('qa327.library.users.get_user', return_value=test_user)
     @patch('qa327.library.tickets.update_ticket', return_value=None)
@@ -906,6 +905,7 @@ class FrontEndUpdateTest(BaseCase):
         # open '/logout' (clean up)
         self.open(base_url + '/logout')
     """
+    
     #Test case R5.5.5 - date must be given in the format YYYYMMDD [fail separators]
     @patch('qa327.library.users.get_user', return_value=test_user)
     @patch('qa327.library.tickets.update_ticket', return_value=None)

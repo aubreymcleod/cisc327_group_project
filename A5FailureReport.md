@@ -70,6 +70,8 @@ For more information on the individualtest cases for the user class see the back
 |---------------------|-----------|-----------------------|-------|----------|
 |USER|reduce_balance| Test the ability to reduce the user balance | Test came back as a failure because the user did not exist | Added a patch to mock the get_user |
 
+
+
 ## Section 3 by Nicole Osayande - I implemented test cases for the first half of R5 and made a few changes to the error messages in update.py file
 
 ##Front End Test Implementation Failures
@@ -78,3 +80,27 @@ For more information on the individualtest cases for the user class see the back
 |R5|1.2|name of the ticket has to be alphanumeric-only, and space allowed on if it is not the first or the last character|error message not visible after six seconds|change the error message to match error message in update.py|
 ||2.2|name of the ticket is no longer than 60 characters [fail]|type syntax error|enter name in string format|
 ||3.1|quantity of the tickets has to be more than 0, and less than or equal to 100 [pass]|message not visible after six seconds|change the id's to match the index file|
+
+
+#####Section 4: Melissa Zhu
+
+I implemented the test set from A1 for features R5.4 to R5.7 as well as the backend test cases for tickets.
+
+#####Front End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|R5|5.4.6| Price has to be in the range 0-100 (fail: price input is blank)| Original error message did not specify this failure. | Changed error message to include this failure. |
+||5.5.2| Date must be given in the format YYYYMMDD (fail)| Original function did not validate the expiration date input. | Changed update method to include expiration date validation. |
+||5.5.3| Date must be given in the format YYYYMMDD (fail: input includes non-numeric characters)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.5.4| Date must be given in the format YYYYMMDD (fail: input is blank)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.5.5| Date must be given in the format YYYYMMDD (fail: input has separators)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.2| Ticket of the given name must exist (fail)| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.3| Ticket of the given name must exist (fail: only numeric characters))| Original error message did not include this failure. | Changed error message to include this failure. |
+||5.6.4| Ticket of the given name must exist (fail: input is blank))| Original error message did not include this failure. | Changed error message to include this failure. |
+
+#####Back End Test Implementation Failures
+|Feature Specification|Sub-Section|Sub-Section Description|Problem|Resolution|
+|---------------------|-----------|-----------------------|-------|----------|
+|TICKET|2.1| A ticket's expiry date should be verified to be not expired. If ticket is not expired the function should return the ticket, if not return None | Test failed because prune_expired_tickets needs a list of tickets to prune. | Added a patch to mock prune_expired_tickets function and mocked a valid_test_tickets list. |
+||3.2| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .add) | Test failed due to exception not being caught in tickets.py | Added try-catch block in tickets. |
+||3.3| The ticket should be added to the database when all input requirements check out, if an error occurs it should be reported (error from .commit) | Test failed due to exception not being caught in tickets.py | Added try-catch block in tickets. |
